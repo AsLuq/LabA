@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ristoratori;
 
 /**
  *
- * @author luqmanasghar
+ * @author crist
  */
+
 public class Ristoratori {
-    public static void main(String args[]){
-    
+    public static void main(String args[]) throws Exception{
+         
+        String path = "C:\\Users\\crist\\Desktop\\text file.txt"; 
+        Parser parser = new Parser();
+        parser.RestaurantReadFromFile(path);
     }
 }

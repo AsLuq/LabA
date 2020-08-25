@@ -103,12 +103,6 @@ public class Cliente {
     
     // <editor-fold desc="Methods"> 
     
-    public List<Cliente> list(){
-        List<Cliente> list = new ArrayList<>();
-        
-        return list;
-    }
-    
     public void printCliente(){
         System.out.println(name + " " + surname + " " + city + " " + province + " " + nickName + " " + password);
     }

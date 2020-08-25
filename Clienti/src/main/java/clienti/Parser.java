@@ -12,10 +12,12 @@ public class Parser {
 
     public Parser() {}    
     
+    // <editor-fold desc="methods">
+    
     /**
      * Read the specified clients files from the given path
      * 
-     * @author Luqman Asghar
+     * @author luqmanasghar
      * @param path path of the file
      * @return list of clients
      */
@@ -43,4 +45,6 @@ public class Parser {
         return listCli;
     } 
                 
+    // </editor-fold>
+    
 }
