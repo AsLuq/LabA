@@ -1,149 +1,67 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ristoratori;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author crist
+ * @author Andrea Basilico
  */
-
-// 
-
 public class Ristorante {
+    // attributes 
+    String nomeRistorante, indirizzo, urlWeb, tipologia, numTelefonico;
     
-    // <editor-fold desc = "Attributes">
-	
-	private String restaurantName;  // 30 caratteri Max
-	private String address;          // 30 caratteri Max
-	private String buildingNumber;     // 5 caratteri Max
-	private String city;            // 40 caratteri Max
-	private String province;        // 2 caratteri Max
-	private int cap;                // 5 caratteri Max
-	private String telephoneNumber;    // 10 caratteri Max
-	private String webSite;         // 50 caratteri Max
-	private String restaurantType;  // 8 caratteri Max
-	
-        //<editor-fold>
-        
-        /**
-         * restaurantName     0 - 29
-         * address             30 - 59
-         * buildingNumbers    60 - 64
-         * city               65 - 104
-         * province           105 - 107
-         * cap                108 - 112
-         * telephoneNumber    113 - 122
-         * webSite            123 - 172
-         * restaurantType     173 - 180
-         * 
-         */
-	// caratteri totali 180
-        
-        // <editor-fold desk = "Builders">
-        
-        public Ristorante(){
-            
-        }
-	
-        public Ristorante(String restaurantName, String adress, String buildingNumber, String city, String province, int cap, String telephoneNumber, String webSite, String restaurantType){
-            this.restaurantName = restaurantName;
-            this.address = adress;
-            this.buildingNumber = buildingNumber;
-            this.city= city;
-            this.province = province;
-            this.cap = cap;
-            this.telephoneNumber = telephoneNumber;
-            this.webSite = webSite;
-            this.restaurantType = restaurantType;
-        }
+    //constructor
+    public Ristorante(String nomeRistorante, String indirizzo, String urlWeb, String tipologia,String numTelefonico) {
+        this.nomeRistorante = nomeRistorante;
+        this.indirizzo = indirizzo;
+        this.urlWeb = urlWeb;
+        this.tipologia = tipologia;
+        this.numTelefonico = numTelefonico;
+    }
 
-        // <editor-fold desc = "Getters&Setters">
-        
-        public String getRestaurantName() {
-            return restaurantName;
-        }
+    //get&set
+    //<editor-fold>
+    public String getNomeRistorante() {
+        return nomeRistorante;
+    }
 
-        public void setRestaurantName(String restaurantName) {
-            this.restaurantName = restaurantName;
-        }
-    
-        public String getAddress() {
-            return address;
-        }
+    public void setNomeRistorante(String nomeRistorante) {
+        this.nomeRistorante = nomeRistorante;
+    }
 
-        public void setAddress(String adress) {
-            this.address = adress;
-        }
+    public String getIndirizzo() {
+        return indirizzo;
+    }
 
-        public String getBuildingNumber() {
-            return buildingNumber;
-        }
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
 
-        public void setBuildingNumber(String buildingNumber) {
-            this.buildingNumber = buildingNumber;
-        }
-        
-        public String getCity() {
-            return city;
-        }
-	
-        public void setCity(String city) {
-            this.city = city;
-        }
+    public String getUrlWeb() {
+        return urlWeb;
+    }
 
-        public String getProvince() {
-            return province;
-        }
+    public void setUrlWeb(String urlWeb) {
+        this.urlWeb = urlWeb;
+    }
 
-        public void setProvince(String province) {
-            this.province = province;
-        }
-    
-        public int getCap() {
-            return cap;
-        }
+    public String getTipologia() {
+        return tipologia;
+    }
 
-        public void setCap(int cap) {
-            this.cap = cap;
-        }
-        
-        public String getTelephoneNumber() {
-            return telephoneNumber;
-        }
-		
-        public void setTelephoneNumber(String telephoneNumber) {
-            this.telephoneNumber = telephoneNumber;
-        }
-        
-        public String getWebSite() {
-            return webSite;
-        }
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
+    }
 
-        public void setWebSite(String webSite) {
-            this.webSite = webSite;
-        }
+    public String getNumTelefonico() {
+        return numTelefonico;
+    }
 
-        public String getRestaurantType() {
-            return restaurantType;
-        }
-
-        public void setRestaurantType(String restaurantType) {
-            this.restaurantType = restaurantType;
-        }
-	
-        
-        //<editor-fold desc = "Methods";
-        
-        public List<Ristorante> restaurantList(){
-            List<Ristorante> RestaurantList = new ArrayList();
-            
-            return RestaurantList;
-        }
-        
-        public void printRestaurant(){
-            System.out.println(restaurantName + " " + address + " " + buildingNumber + " " + city + " " + province + " " + cap + " " + telephoneNumber + " " + webSite + " " + restaurantType );
-        }
+    public void setNumTelefonico(String numTelefonico) {
+        this.numTelefonico = numTelefonico;
+    }
+    //</editor-fold>
 }
-    
-
