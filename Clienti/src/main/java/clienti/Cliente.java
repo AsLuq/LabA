@@ -15,7 +15,15 @@ public class Cliente {
     private String province;
     private String mail;
     private String nickName;
-    private String password;
+    private String password;    
+    static final int LENGTH_NAME = 30;
+    static final int LENGTH_SURNAME = 30;
+    static final int LENGTH_CITY = 40;
+    static final int LENGTH_PROVINCE = 3;
+    static final int LENGTH_MAIL = 32;
+    static final int LENGTH_NICKNAME = 26;
+    static final int LENGTH_PASSWORD = 17;
+    
     // </editor-fold>
 
     public Cliente(String name, String surname, String city, String province, String mail, String nickName, String password) {

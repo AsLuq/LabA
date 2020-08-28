@@ -1,9 +1,5 @@
 package clienti;
 
-import java.awt.Container;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 
 /**
  *
@@ -16,8 +12,7 @@ public class Clienti {
         //Parser parser = new Parser();
         //parser.readFromFile(path);
         
-        LoginFrame loginFrame = new LoginFrame();
-        
+        LoginFrame loginFrame = new LoginFrame();        
         loginFrame.setVisible(true);
     }
 }
