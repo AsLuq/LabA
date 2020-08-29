@@ -38,7 +38,7 @@ public class RestaurantLoginGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	
+		
 	public RestaurantLoginGUI() {
 		setFont(new Font("Tahoma", Font.BOLD, 13));
 		setTitle("Applicativo Ristoratori");

@@ -15,8 +15,12 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 
 
@@ -36,16 +40,16 @@ public class SecondaryRestaurantGUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SecondaryRestaurantGUI frame = new SecondaryRestaurantGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+            EventQueue.invokeLater(new Runnable() {
+		public void run() {
+                    try {
+			SecondaryRestaurantGUI frame = new SecondaryRestaurantGUI();
+                        frame.setVisible(true);
+			} catch (Exception e) {
+                            e.printStackTrace();
 			}
-		});
+		}
+            });
 	}
 
 	/**
@@ -53,167 +57,163 @@ public class SecondaryRestaurantGUI extends JFrame {
 	 */
 	
 	public SecondaryRestaurantGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280,720);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setBounds(100, 100, 550,500);
+            contentPane = new JPanel();
+            contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+            setContentPane(contentPane);
+            contentPane.setLayout(null);
 		
-		JLabel lblRestName = new JLabel("Restaurant Name : ");
-		lblRestName.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblRestName.setBounds(51, 46, 150, 25);
-		contentPane.add(lblRestName);
+            JLabel lblRestName = new JLabel("Restaurant Name : ");
+            lblRestName.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblRestName.setBounds(51, 46, 150, 25);
+            contentPane.add(lblRestName);
 		
-		JLabel lblAdress = new JLabel("Address : ");
-		lblAdress.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblAdress.setBounds(51, 82, 150, 25);
-		contentPane.add(lblAdress);
+            JLabel lblAdress = new JLabel("Address : ");
+            lblAdress.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblAdress.setBounds(51, 82, 150, 25);
+            contentPane.add(lblAdress);
 		
-		JLabel lblBuildNumb = new JLabel("Building Number : ");
-		lblBuildNumb.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblBuildNumb.setBounds(51, 118, 150, 25);
-		contentPane.add(lblBuildNumb);
+            JLabel lblBuildNumb = new JLabel("Building Number : ");
+            lblBuildNumb.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblBuildNumb.setBounds(51, 118, 150, 25);
+            contentPane.add(lblBuildNumb);
 		
-		JLabel lblCity = new JLabel("City : ");
-		lblCity.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCity.setBounds(51, 154, 150, 25);
-		contentPane.add(lblCity);
+            JLabel lblCity = new JLabel("City : ");
+            lblCity.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblCity.setBounds(51, 154, 150, 25);
+            contentPane.add(lblCity);
 		
-		JLabel lblProvince = new JLabel("Province : ");
-		lblProvince.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblProvince.setBounds(51, 190, 150, 25);
-		contentPane.add(lblProvince);
+            JLabel lblProvince = new JLabel("Province : ");
+            lblProvince.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblProvince.setBounds(51, 190, 150, 25);
+            contentPane.add(lblProvince);
 		
-		JLabel lblPostalCode = new JLabel("Postal Code : ");
-		lblPostalCode.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPostalCode.setBounds(51, 226, 150, 25);
-		contentPane.add(lblPostalCode);
+            JLabel lblPostalCode = new JLabel("Postal Code : ");
+            lblPostalCode.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblPostalCode.setBounds(51, 226, 150, 25);
+            contentPane.add(lblPostalCode);
 		
-		JLabel lblTelephNumb = new JLabel("Telephone Number: ");
-		lblTelephNumb.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTelephNumb.setBounds(51, 262, 150, 25);
-		contentPane.add(lblTelephNumb);
+            JLabel lblTelephNumb = new JLabel("Telephone Number: ");
+            lblTelephNumb.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblTelephNumb.setBounds(51, 262, 150, 25);
+            contentPane.add(lblTelephNumb);
 		
-		JLabel lblWebsite = new JLabel("Website : ");
-		lblWebsite.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblWebsite.setBounds(51, 298, 150, 25);
-		contentPane.add(lblWebsite);
+            JLabel lblWebsite = new JLabel("Website : ");
+            lblWebsite.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblWebsite.setBounds(51, 298, 150, 25);
+            contentPane.add(lblWebsite);
 		
-		JLabel lblRestType = new JLabel("Restaurant Type : ");
-		lblRestType.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblRestType.setBounds(51, 336, 150, 25);
-		contentPane.add(lblRestType);
+            JLabel lblRestType = new JLabel("Restaurant Type : ");
+            lblRestType.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblRestType.setBounds(51, 336, 150, 25);
+            contentPane.add(lblRestType);
 		
-		JLabel lblMissedGap = new JLabel("You missed something!");
-		lblMissedGap.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMissedGap.setBounds(184, 417, 200, 25);
-		lblMissedGap.setVisible(false);
-		contentPane.add(lblMissedGap);
+            JLabel lblMissedGap = new JLabel("You missed something!");
+            lblMissedGap.setFont(new Font("Tahoma", Font.BOLD, 13));
+            lblMissedGap.setBounds(211, 417, 150, 25);
+            lblMissedGap.setVisible(false);
+            contentPane.add(lblMissedGap);
 		
-		textFieldRestName = new JTextField();
-		textFieldRestName.setBounds(211, 49, 150, 20);
-		contentPane.add(textFieldRestName);
-		textFieldRestName.setColumns(10);
+            textFieldRestName = new JTextField();
+            textFieldRestName.setDocument(new RestaurantJTextFieldLimit(30));
+            textFieldRestName.setBounds(211, 49, 150, 20);
+            contentPane.add(textFieldRestName);
+            textFieldRestName.setColumns(10);
 		
-		textFieldAddress = new JTextField();
-		textFieldAddress.setColumns(10);
-		textFieldAddress.setBounds(211, 85, 150, 20);
-		contentPane.add(textFieldAddress);
+            textFieldAddress = new JTextField();
+            textFieldAddress.setDocument(new RestaurantJTextFieldLimit(30));
+            textFieldAddress.setColumns(10);
+            textFieldAddress.setBounds(211, 85, 150, 20);
+            contentPane.add(textFieldAddress);
 		
-		textFieldBuildNumb = new JTextField();
-		textFieldBuildNumb.setColumns(10);
-		textFieldBuildNumb.setBounds(211, 121, 150, 20);
-		contentPane.add(textFieldBuildNumb);
+            textFieldBuildNumb = new JTextField();
+            textFieldBuildNumb.setDocument(new RestaurantJTextFieldLimit(5));
+            textFieldBuildNumb.setColumns(10);
+            textFieldBuildNumb.setBounds(211, 121, 150, 20);
+            contentPane.add(textFieldBuildNumb);
 		
-		textFieldCity = new JTextField();
-		textFieldCity.setColumns(10);
-		textFieldCity.setBounds(211, 157, 150, 20);
-		contentPane.add(textFieldCity);
+            textFieldCity = new JTextField();
+            textFieldCity.setDocument(new RestaurantJTextFieldLimit(40));
+            textFieldCity.setColumns(10);
+            textFieldCity.setBounds(211, 157, 150, 20);
+            contentPane.add(textFieldCity);
 		
-		textFieldProvince = new JTextField();
-		textFieldProvince.setColumns(10);
-		textFieldProvince.setBounds(211, 193, 150, 20);
-		contentPane.add(textFieldProvince);
+            textFieldProvince = new JTextField();
+            textFieldProvince.setDocument(new RestaurantJTextFieldLimit(3));
+            textFieldProvince.setColumns(10);
+            textFieldProvince.setBounds(211, 193, 150, 20);
+            contentPane.add(textFieldProvince);
 		
-		textFieldPostalCode = new JTextField();
-		textFieldPostalCode.setColumns(10);
-		textFieldPostalCode.setBounds(211, 229, 150, 20);
-		contentPane.add(textFieldPostalCode);
+            textFieldPostalCode = new JTextField();
+            textFieldPostalCode.setDocument(new RestaurantJTextFieldLimit(5));
+            textFieldPostalCode.setColumns(10);
+            textFieldPostalCode.setBounds(211, 229, 150, 20);
+            contentPane.add(textFieldPostalCode);
 		
-		textFieldTelephNumb = new JTextField();
-		textFieldTelephNumb.setColumns(10);
-		textFieldTelephNumb.setBounds(211, 265, 150, 20);
-		contentPane.add(textFieldTelephNumb);
+            textFieldTelephNumb = new JTextField();
+            textFieldTelephNumb.setDocument(new RestaurantJTextFieldLimit(10));
+            textFieldTelephNumb.setColumns(10);
+            textFieldTelephNumb.setBounds(211, 265, 150, 20);
+            contentPane.add(textFieldTelephNumb);
 		
-		textFieldWebsite = new JTextField();
-		textFieldWebsite.setColumns(10);
-		textFieldWebsite.setBounds(211, 301, 150, 20);
-		contentPane.add(textFieldWebsite);
+            textFieldWebsite = new JTextField();
+            textFieldWebsite.setDocument(new RestaurantJTextFieldLimit(100));
+            textFieldWebsite.setColumns(10);
+            textFieldWebsite.setBounds(211, 301, 150, 20);
+            contentPane.add(textFieldWebsite);
 		
-		String[] RestaurantTypes = {"Select an Option: " , "Italian" , "Etnic" , "Fusion"};
+            String[] RestaurantTypes = {"Select an Option: " , "Italian" , "Etnic" , "Fusion"};
 	
-		JComboBox comboRestaurant = new JComboBox(RestaurantTypes);
-		comboRestaurant.setBounds(211, 338, 150, 22);
-		contentPane.add(comboRestaurant);
+            JComboBox comboRestaurant = new JComboBox(RestaurantTypes);
+            comboRestaurant.setBounds(211, 338, 150, 22);
+            contentPane.add(comboRestaurant);
 		
-		JButton btnAddRest = new JButton("Add Restaurant");
-		btnAddRest.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+            JButton btnAddRest = new JButton("Add Restaurant");
+            btnAddRest.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+                    String emptyString = "";
 				
-				String emptyString = "";
+                    if(!textFieldRestName.getText().equals(emptyString) || !textFieldAddress.getText().equals(emptyString ) || 
+			!textFieldBuildNumb.getText().equals(emptyString ) || !textFieldCity.getText().equals(emptyString ) ||
+			!textFieldProvince.getText().equals(emptyString) || !textFieldPostalCode.getText().equals(emptyString ) || 
+			!textFieldTelephNumb.getText().equals(emptyString ) || !textFieldWebsite.getText().equals(emptyString ) ||
+			!comboRestaurant.getSelectedItem().equals("Select an Option: ")) {
+					
+                            Ristorante tmpRestaurant = new Ristorante();
 				
-				if(!textFieldRestName.getText().equals(emptyString) || !textFieldAddress.getText().equals(emptyString ) || 
-					!textFieldBuildNumb.getText().equals(emptyString ) || !textFieldCity.getText().equals(emptyString ) ||
-					!textFieldProvince.getText().equals(emptyString) || !textFieldPostalCode.getText().equals(emptyString ) || 
-					!textFieldTelephNumb.getText().equals(emptyString ) || !textFieldWebsite.getText().equals(emptyString ) ||
-					!comboRestaurant.getSelectedItem().equals("Select an Option: ")) {
+                            tmpRestaurant.setRestaurantName(textFieldRestName.getText());
+                            tmpRestaurant.setAddress(textFieldAddress.getText());
+                            tmpRestaurant.setBuildingNumber(textFieldBuildNumb.getText());
+                            tmpRestaurant.setCity(textFieldCity.getText());
+                            tmpRestaurant.setProvince(textFieldProvince.getText());
+                            tmpRestaurant.setCap(Integer.parseInt(textFieldPostalCode.getText()));
+                            tmpRestaurant.setTelephoneNumber(textFieldTelephNumb.getText());
+                            tmpRestaurant.setWebSite(textFieldWebsite.getText());
+                            tmpRestaurant.setRestaurantType(String.valueOf(comboRestaurant.getSelectedItem()));
 					
-					Ristorante tmpRestaurant = new Ristorante();
-				
-					tmpRestaurant.setRestaurantName(textFieldRestName.getText());
-					tmpRestaurant.setAddress(textFieldAddress.getText());
-					tmpRestaurant.setBuildingNumber(textFieldBuildNumb.getText());
-					tmpRestaurant.setCity(textFieldCity.getText());
-					tmpRestaurant.setProvince(textFieldProvince.getText());
-					tmpRestaurant.setCap(Integer.parseInt(textFieldPostalCode.getText()));
-					tmpRestaurant.setTelephoneNumber(textFieldTelephNumb.getText());
-					tmpRestaurant.setWebSite(textFieldWebsite.getText());
-					tmpRestaurant.setRestaurantType(String.valueOf(comboRestaurant.getSelectedItem()));
-					
-					String filePath = "../eatAdvisor.txt";
-					try {
-						FileWriter writerRestaurant = new FileWriter(filePath);
-						writerRestaurant.write(tmpRestaurant.stringRestaurant());
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					
-					
-					tmpRestaurant.printRestaurant();
-					List<Ristorante> GUIList = new ArrayList<Ristorante>();
-					GUIList.add(tmpRestaurant);
-					
-					int lastRestaurantdAdded = GUIList.size() - 1;
+                            RestaurantParser tmpEatAdvisorParser = new RestaurantParser();
+                            try {
+				tmpEatAdvisorParser.RestaurantWriteToFile(tmpRestaurant);
+                            } catch (IOException e1) {
+				e1.printStackTrace();
+                            }
 					
 				
-				}else{
+                           //List<Ristorante> GUIList = new ArrayList<Ristorante>();
+                           //GUIList.add(tmpRestaurant);
+                           // int lastRestaurantdAdded = GUIList.size() - 1;
 					
-					lblMissedGap.setVisible(true);
-					
-				}
 				
-				
-				
+                        }else{
+                            lblMissedGap.setVisible(true);
+                        }
+								
 			}
 		});
 		
-		btnAddRest.setBounds(211, 381, 150, 25);
-		contentPane.add(btnAddRest);
-		
-		
-		
+            btnAddRest.setBounds(211, 381, 150, 25);
+            contentPane.add(btnAddRest);
+				
 	}
 }

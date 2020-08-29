@@ -14,16 +14,25 @@ public class Ristorante {
     
     // <editor-fold desc = "Attributes">
 	
-	private String restaurantName;  // 30 caratteri Max
-	private String address;          // 30 caratteri Max
-	private String buildingNumber;     // 5 caratteri Max
-	private String city;            // 40 caratteri Max
-	private String province;        // 2 caratteri Max
-	private int cap;                // 5 caratteri Max
-	private String telephoneNumber;    // 10 caratteri Max
-	private String webSite;         // 50 caratteri Max
-	private String restaurantType;  // 8 caratteri Max
+	private String restaurantName;  
+	private String address;          
+	private String buildingNumber;     
+	private String city;            
+	private String province;        
+	private int cap;                
+	private String telephoneNumber;    
+	private String webSite;         
+	private String restaurantType;  
 	
+        static final int LENGTH_RESTAURANTNAME = 30;
+	static final int LENGHT_ADDRESS = 30;
+	static final int LENGTH_BUILDINGNUMBER = 5;
+	static final int LENGTH_CITY = 40;
+	static final int LENGTH_PROVINCE = 3;
+	static final int LENGTH_CAP = 5;
+	static final int LENGTH_TELEPHONENUMBER = 10;
+	static final int LENGTH_WEBSITE = 100;
+        
         //<editor-fold>
         
         /**
@@ -34,8 +43,8 @@ public class Ristorante {
          * province           105 - 107
          * cap                108 - 112
          * telephoneNumber    113 - 122
-         * webSite            123 - 172
-         * restaurantType     173 - 180
+         * webSite            123 - 222
+         * restaurantType     223 - 230
          * 
          */
 	// caratteri totali 180
@@ -145,10 +154,6 @@ public class Ristorante {
             System.out.println(restaurantName + " " + address + " " + buildingNumber + " " + city + " " + province + " " + cap + " " + telephoneNumber + " " + webSite + " " + restaurantType );
         }
         
-        public String stringRestaurant() {
-        	String tmpStr = "";
-        	return tmpStr = restaurantName + " - " + address + " - " + buildingNumber + " - " + city + " - " + province + " - " + cap + " - " + telephoneNumber + " - " + webSite + " - " + restaurantType;
-        }
 }
     
 
