@@ -37,7 +37,7 @@ public class LoginFrame extends javax.swing.JFrame {
         JLblNickName = new javax.swing.JLabel();
         jTextFieldNickName = new javax.swing.JTextField();
         jLblPassword = new javax.swing.JLabel();
-        KBtnLogin = new javax.swing.JButton();
+        JBtnLogin = new javax.swing.JButton();
         javax.swing.JButton JBtnRegistrati = new javax.swing.JButton();
         jTextFieldPassword = new javax.swing.JTextField();
         jLabelError = new javax.swing.JLabel();
@@ -107,10 +107,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLblPassword.setText("Password");
 
-        KBtnLogin.setText("Accedi");
-        KBtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        JBtnLogin.setText("Accedi");
+        JBtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                KBtnLoginMouseClicked(evt);
+                JBtnLoginMouseClicked(evt);
             }
         });
 
@@ -130,7 +130,7 @@ public class LoginFrame extends javax.swing.JFrame {
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(64, Short.MAX_VALUE)
-                .addComponent(KBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(JBtnRegistrati, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
@@ -164,7 +164,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(jLabelError)
                 .addGap(8, 8, 8)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(KBtnLogin)
+                    .addComponent(JBtnLogin)
                     .addComponent(JBtnRegistrati))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
@@ -208,7 +208,7 @@ public class LoginFrame extends javax.swing.JFrame {
      * Checks if the inserted nickName and password matches with any user data
      * @param evt 
      */
-    private void KBtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KBtnLoginMouseClicked
+    private void JBtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnLoginMouseClicked
         try {
             Parser parser = new Parser();
             Boolean userExits = false;
@@ -230,7 +230,7 @@ public class LoginFrame extends javax.swing.JFrame {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_KBtnLoginMouseClicked
+    }//GEN-LAST:event_JBtnLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -269,8 +269,8 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBtnLogin;
     private javax.swing.JLabel JLblNickName;
-    private javax.swing.JButton KBtnLogin;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
