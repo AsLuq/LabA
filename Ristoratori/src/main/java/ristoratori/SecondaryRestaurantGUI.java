@@ -182,7 +182,7 @@ public class SecondaryRestaurantGUI extends JFrame {
                             tmpRestaurant.setBuildingNumber(textFieldBuildNumb.getText());
                             tmpRestaurant.setCity(textFieldCity.getText());
                             tmpRestaurant.setProvince(textFieldProvince.getText());
-                            tmpRestaurant.setCap(Integer.parseInt(textFieldPostalCode.getText()));
+                            tmpRestaurant.setCap((textFieldPostalCode.getText()));
                             tmpRestaurant.setTelephoneNumber(textFieldTelephNumb.getText());
                             tmpRestaurant.setWebSite(textFieldWebsite.getText());
                             tmpRestaurant.setRestaurantType(String.valueOf(comboRestaurant.getSelectedItem()));

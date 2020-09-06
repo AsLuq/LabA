@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,23 +28,22 @@ public class RecensioniGUI extends JFrame {
 
 	/**
 	 * Launch the application.
+     * @param args
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RecensioniGUI frame = new RecensioniGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		EventQueue.invokeLater(() -> {
+                    try {
+                        RecensioniGUI frame = new RecensioniGUI();
+                        frame.setVisible(true);
+                    } catch (Exception e) {
+                    }
+                });
 	}
 
 	/**
 	 * Create the frame.
 	 */
+        
 	public RecensioniGUI() {
 		setTitle("Restaurant Rewiew");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,44 +70,43 @@ public class RecensioniGUI extends JFrame {
 		contentPane.add(textAreaReview);
 		
 		JButton btnAddRecensione = new JButton("Add Rewiew");
-		btnAddRecensione.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String empty = "";
-				
-				if(!textAreaReview.equals(empty)){
-					
-					File restaurantReview = new File("restaurantReview.txt");
-					Recensioni review = new Recensioni(textAreaReview.getText());
-					
-					if(restaurantReview.exists()) {
-						FileOutputStream restaurantReviewFOP = null;
-						try {
-							restaurantReviewFOP = new FileOutputStream("restaurantReview",true);
-						} catch (FileNotFoundException e1) {
-							e1.printStackTrace();
-						}
-						PrintWriter restaurantReviewWriter = new PrintWriter(restaurantReviewFOP);
-						restaurantReviewWriter.println(review.getRestaurantReviews());
-						restaurantReviewWriter.close();
-					} else
-						try {
-							if(restaurantReview.createNewFile()){
-								PrintWriter restaurantReviewWriter = new PrintWriter("restaurantReview.txt");
-								restaurantReviewWriter.println(review.getRestaurantReviews());
-								restaurantReviewWriter.close();
-								
-							}
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-									
-					defaultModel.addElement(textAreaReview.getText());
-					listRewiew.setModel(defaultModel);
-		
-				}
-			}
-		});
+		btnAddRecensione.addActionListener((ActionEvent e) -> {
+                    String empty = "";
+                    
+                    if(!textAreaReview.equals(empty)){
+                        
+                        File restaurantReview = new File("restaurantReview.txt");
+                        Recensioni review = new Recensioni(textAreaReview.getText());
+                        
+                        if(restaurantReview.exists()) {
+                            FileOutputStream restaurantReviewFOP = null;
+                            try {
+                                restaurantReviewFOP = new FileOutputStream("restaurantReview",true);
+                            } catch (FileNotFoundException e1) {
+                                e1.printStackTrace();
+                            }
+                            PrintWriter restaurantReviewWriter = new PrintWriter(restaurantReviewFOP);
+                            restaurantReviewWriter.println(review.getRestaurantReviews());
+                            restaurantReviewWriter.close();
+                        } else
+                            try {
+                                if(restaurantReview.createNewFile()){
+                                    PrintWriter restaurantReviewWriter = new PrintWriter("restaurantReview.txt");
+                                    restaurantReviewWriter.println(review.getRestaurantReviews());
+                                    restaurantReviewWriter.close();
+                                    
+                                }
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                        
+                        defaultModel.addElement(textAreaReview.getText());
+                        listRewiew.setModel(defaultModel);
+                        
+                    }
+                    
+                });
+                
 		btnAddRecensione.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnAddRecensione.setBounds(57, 52, 130, 25);
 		contentPane.add(btnAddRecensione);

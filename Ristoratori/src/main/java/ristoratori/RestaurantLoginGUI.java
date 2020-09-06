@@ -1,6 +1,5 @@
 package ristoratori;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,7 +13,7 @@ import java.awt.event.ActionEvent;
 
 public class RestaurantLoginGUI extends JFrame {
 
-	private JPanel contentPane;
+	private final JPanel contentPane;
 	private JTextField textFieldUsername;
 	private JTextField textFieldPassword;
 	static RestaurantLoginGUI frame;
@@ -24,6 +23,7 @@ public class RestaurantLoginGUI extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+                        @Override
 			public void run() {
 				try {
 					frame = new RestaurantLoginGUI();

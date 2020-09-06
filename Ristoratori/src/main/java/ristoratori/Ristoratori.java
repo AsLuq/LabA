@@ -1,5 +1,7 @@
 package ristoratori;
 
+import java.util.List;
+
 /**
  *
  * @author crist
@@ -12,10 +14,8 @@ public class Ristoratori {
         // RestaurantLoginGUI restaurantLogin = new RestaurantLoginGUI();
         // restaurantLogin.setVisible(true);
         
-        Ristorante prov = new Ristorante();
-        RestaurantParser provParser = new RestaurantParser();
-        
-        System.out.println(provParser.RestaurantReadFromFile());
-
+         RestaurantParser provParser = new RestaurantParser(); 
+         List<Ristorante> tmpList = provParser.RestaurantReadFromFile();
+         System.out.println(tmpList);
     }
 }

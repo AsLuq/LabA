@@ -19,7 +19,7 @@ public class Ristorante {
 	private String buildingNumber;     
 	private String city;            
 	private String province;        
-	private int cap;                
+	private String cap;                
 	private String telephoneNumber;    
 	private String webSite;         
 	private String restaurantType;  
@@ -29,25 +29,26 @@ public class Ristorante {
 	static final int LENGTH_BUILDINGNUMBER = 5;
 	static final int LENGTH_CITY = 40;
 	static final int LENGTH_PROVINCE = 3;
-	static final int LENGTH_CAP = 5;
+	static final int LENGTH_CAP = 6;
 	static final int LENGTH_TELEPHONENUMBER = 10;
 	static final int LENGTH_WEBSITE = 100;
+        static final int LENGTH_RESTAURANTTYPE = 8;
         
         //<editor-fold>
         
         /**
          * restaurantName     0 - 29
-         * address             30 - 59
+         * address            30 - 59
          * buildingNumbers    60 - 64
          * city               65 - 104
          * province           105 - 107
-         * cap                108 - 112
-         * telephoneNumber    113 - 122
-         * webSite            123 - 222
-         * restaurantType     223 - 230
+         * cap                108 - 113
+         * telephoneNumber    114 - 123
+         * webSite            124 - 223
+         * restaurantType     224 - 231
          * 
          */
-	// caratteri totali 180
+	// caratteri totali 231
         
         // <editor-fold desk = "Builders">
         
@@ -55,21 +56,7 @@ public class Ristorante {
             
         }
         
-       /*public Ristorante(String restaurant){
-           
-          restaurantName = restaurant.substring(0, 29);
-            address = restaurant.substring(30, 59);
-            buildingNumber = restaurant.substring(60,64);
-            city = restaurant.substring(65,104);
-            province = restaurant.substring(105, 107);
-            cap = Integer.parseInt(restaurant.substring(108,112));
-            telephoneNumber = restaurant.substring(113,122);
-            webSite = restaurant.substring(123,222);
-            restaurantType = restaurant.substring(223,230);
-        }*/
-	
-        
-        public Ristorante(String restaurantName, String adress, String buildingNumber, String city, String province, int cap, String telephoneNumber, String webSite, String restaurantType){
+        public Ristorante(String restaurantName, String adress, String buildingNumber, String city, String province, String cap, String telephoneNumber, String webSite, String restaurantType){
             this.restaurantName = restaurantName;
             this.address = adress;
             this.buildingNumber = buildingNumber;
@@ -123,11 +110,11 @@ public class Ristorante {
             this.province = province;
         }
     
-        public int getCap() {
+        public String getCap() {
             return cap;
         }
 
-        public void setCap(int cap) {
+        public void setCap(String cap) {
             this.cap = cap;
         }
         
@@ -160,7 +147,6 @@ public class Ristorante {
         
         public List<Ristorante> restaurantList(){
             List<Ristorante> RestaurantList = new ArrayList();
-            
             return RestaurantList;
         }
         
