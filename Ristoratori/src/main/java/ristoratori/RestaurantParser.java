@@ -37,32 +37,7 @@ public class RestaurantParser {
         
         return tmpString;
     }
-    
- 
-    
-    /*public List<Ristorante> RestaurantReadFromFile(){
-        List<Ristorante> tmpRestaurantList = new ArrayList();
-        String tmpRestaurantLine;
-        Scanner eatAdvisorScanner = new Scanner("eatAdvisor.txt");
-        while(eatAdvisorScanner.hasNextLine()){
-            Ristorante tmpRestaurant = new Ristorante();
-            tmpRestaurantLine = eatAdvisorScanner.nextLine();
-            
-            tmpRestaurant.setRestaurantName(tmpRestaurantLine.substring(0, 30).trim());
-            tmpRestaurant.setAddress(tmpRestaurantLine.substring(30,60 ).trim());
-            tmpRestaurant.setBuildingNumber(tmpRestaurantLine.substring(60, 65).trim());
-            tmpRestaurant.setCity(tmpRestaurantLine.substring(65, 105).trim());
-            tmpRestaurant.setProvince(tmpRestaurantLine.substring(105, 108).trim());
-            tmpRestaurant.setCap(Integer.parseInt(tmpRestaurantLine.substring(108, 113).trim()));
-            tmpRestaurant.setTelephoneNumber(tmpRestaurantLine.substring(113, 123).trim());
-            tmpRestaurant.setWebSite(tmpRestaurantLine.substring(123, 223).trim());
-            tmpRestaurant.setRestaurantType(tmpRestaurantLine.substring(223, 231).trim());
-                
-            tmpRestaurantList.add(tmpRestaurant);
-        }
-        return tmpRestaurantList;
-    }*/
-
+   
     public List<Ristorante> RestaurantReadFromFile() throws FileNotFoundException, IOException{
         File file = new File("eatAdvisor.txt");
         Scanner scanner = new Scanner(file);

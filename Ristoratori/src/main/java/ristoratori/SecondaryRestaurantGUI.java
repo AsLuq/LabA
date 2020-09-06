@@ -1,6 +1,7 @@
 package ristoratori;
 
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +16,10 @@ import java.awt.event.ActionListener;
 
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JList;
 
 
 public class SecondaryRestaurantGUI extends JFrame {
@@ -156,7 +161,7 @@ public class SecondaryRestaurantGUI extends JFrame {
             textFieldWebsite.setColumns(10);
             textFieldWebsite.setBounds(211, 301, 150, 20);
             contentPane.add(textFieldWebsite);
-		
+            	
             String[] RestaurantTypes = {"Select an Option: " , "Italian" , "Etnic" , "Fusion"};
 	
             JComboBox comboRestaurant = new JComboBox(RestaurantTypes);
@@ -186,9 +191,9 @@ public class SecondaryRestaurantGUI extends JFrame {
                             tmpRestaurant.setTelephoneNumber(textFieldTelephNumb.getText());
                             tmpRestaurant.setWebSite(textFieldWebsite.getText());
                             tmpRestaurant.setRestaurantType(String.valueOf(comboRestaurant.getSelectedItem()));
-					
-                            RestaurantParser tmpEatAdvisorParser = new RestaurantParser();
                             
+                            RestaurantParser tmpEatAdvisorParser = new RestaurantParser();
+                           
                             textFieldRestName.setText("");
                             textFieldAddress.setText("");
                             textFieldBuildNumb.setText("");
@@ -204,13 +209,7 @@ public class SecondaryRestaurantGUI extends JFrame {
                             } catch (IOException e1) {
                                 
                             }
-					
-				
-                           //List<Ristorante> GUIList = new ArrayList<Ristorante>();
-                           //GUIList.add(tmpRestaurant);
-                           //int lastRestaurantdAdded = GUIList.size() - 1;
-					
-				
+			    	
                         }else{
                             lblMissedGap.setVisible(true);
                         }
