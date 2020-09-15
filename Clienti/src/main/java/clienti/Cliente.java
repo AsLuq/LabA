@@ -1,6 +1,4 @@
 package clienti;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

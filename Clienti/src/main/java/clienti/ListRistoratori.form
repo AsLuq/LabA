@@ -67,6 +67,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelUenteLoggato" min="-2" pref="106" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabelClientName" min="-2" pref="239" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -75,7 +77,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabelClientName" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelClientName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelUenteLoggato" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -83,8 +88,11 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabelClientName">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelUenteLoggato">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Utente Loggato: "/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
       </SubComponents>
@@ -204,7 +212,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="657" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="823" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -213,7 +221,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="77" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -232,17 +240,29 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
+                  <Table columnCount="8" rowCount="0">
                     <Column editable="false" title="Nome" type="java.lang.Object"/>
-                    <Column editable="false" title="Cognome" type="java.lang.Object"/>
-                    <Column editable="false" title="Comune" type="java.lang.Object"/>
+                    <Column editable="false" title="Indirizzo" type="java.lang.Object"/>
+                    <Column editable="false" title="Citt&#xe0;" type="java.lang.Object"/>
+                    <Column editable="false" title="Cap" type="java.lang.Object"/>
                     <Column editable="false" title="Prov" type="java.lang.Object"/>
-                    <Column editable="false" title="Email" type="java.lang.Object"/>
-                    <Column editable="false" title="Psw" type="java.lang.Object"/>
+                    <Column editable="false" title="Numero" type="java.lang.Object"/>
+                    <Column editable="false" title="Sito Web" type="java.lang.Object"/>
+                    <Column editable="false" title="Tipologia" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>

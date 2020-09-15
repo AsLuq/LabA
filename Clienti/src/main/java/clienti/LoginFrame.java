@@ -1,10 +1,8 @@
 package clienti;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPasswordField;
 
 /**
  *
@@ -41,6 +39,7 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.JButton JBtnRegistrati = new javax.swing.JButton();
         jTextFieldPassword = new javax.swing.JTextField();
         jLabelError = new javax.swing.JLabel();
+        jButtonOspite = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -124,30 +123,39 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabelError.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabelError.setForeground(new java.awt.Color(255, 0, 0));
 
+        jButtonOspite.setText("Ospite");
+        jButtonOspite.setToolTipText("");
+        jButtonOspite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonOspiteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addComponent(JBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(JBtnRegistrati, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JLblNickName, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
-                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldNickName)
-                        .addComponent(jTextFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JBtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JBtnRegistrati, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jButtonOspite, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JLblNickName, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                            .addComponent(jTextFieldNickName)
+                            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +173,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBtnLogin)
-                    .addComponent(JBtnRegistrati))
+                    .addComponent(JBtnRegistrati)
+                    .addComponent(jButtonOspite))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
@@ -191,22 +200,24 @@ public class LoginFrame extends javax.swing.JFrame {
 
     /**
      * Closes Login frame and opens Register Frame
-     * @param evt 
+     *
+     * @param evt
      */
     private void JBtnRegistratiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnRegistratiMouseClicked
-        
+
         // inizialize register form Frame 
         RegisterPanelForm registerPanelForm = new RegisterPanelForm();
         registerPanelForm.setVisible(true);
         registerPanelForm.setLocationRelativeTo(null);
         // remuving current Frame
         this.dispose();
-        
+
     }//GEN-LAST:event_JBtnRegistratiMouseClicked
 
     /**
      * Checks if the inserted nickName and password matches with any user data
-     * @param evt 
+     *
+     * @param evt
      */
     private void JBtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnLoginMouseClicked
         try {
@@ -214,23 +225,44 @@ public class LoginFrame extends javax.swing.JFrame {
             Boolean userExits = false;
             String nickName = jTextFieldNickName.getText();
             String password = jTextFieldPassword.getText();
-            
+            Cliente cliente = null;
+
             List<Cliente> listCli = parser.readFromFile();
-            
-            for(Cliente cli : listCli){
-                if(cli.getNickName().equals(nickName) && cli.getPassword().equals(password)){
+
+            for (Cliente cli : listCli) {
+                if (cli.getNickName().equals(nickName) && cli.getPassword().equals(password)) {
                     userExits = true;
+                    cliente = cli;
                     break;
                 }
             }
-            if(!userExits)
+            if (!userExits) {
                 jLabelError.setText("NickName o password errati");
-            
+            } else {
+                ListRistoratori listRist = new ListRistoratori(cliente);
+                listRist.setLocationRelativeTo(null);
+                listRist.setVisible(true);
+
+                this.dispose();
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_JBtnLoginMouseClicked
+
+    private void jButtonOspiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonOspiteMouseClicked
+        try {
+            ListRistoratori listRist = new ListRistoratori();
+            listRist.setLocationRelativeTo(null);
+            listRist.setVisible(true);
+            
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonOspiteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -271,6 +303,7 @@ public class LoginFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBtnLogin;
     private javax.swing.JLabel JLblNickName;
+    private javax.swing.JButton jButtonOspite;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;

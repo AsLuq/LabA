@@ -3,12 +3,11 @@ package clienti;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +23,7 @@ public class Parser {
     public Parser() {
     }
 
-    public static String path = "/Users/luqmanasghar/Desktop/text file";
+    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + "/FileDati/Utenti.dati";
 
     // <editor-fold desc="methods">
     /**
@@ -34,26 +33,47 @@ public class Parser {
      * @return list of clients
      */
     public List<Cliente> readFromFile() throws Exception {
-        File file = new File("filename.txt");
+        File file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
         Scanner scanner = new Scanner(file);
         List<Cliente> listCli = new ArrayList<>();
+        int startChar, endChar;
 
-        if (file.exists()) {
-            while (scanner.hasNextLine()) {
-                Cliente cliente = new Cliente();
-                String line = scanner.nextLine();
-                cliente.setName(line.substring(0, 30).trim());
-                cliente.setSurname(line.substring(30, 60).trim());
-                cliente.setCity(line.substring(60, 100).trim());
-                cliente.setProvince(line.substring(100, 103).trim());
-                cliente.setMail(line.substring(103, 135).trim());
-                cliente.setNickName(line.substring(135, 161).trim());
-                cliente.setPassword(line.substring(161, 178).trim());
+        while (scanner.hasNextLine()) {
+            Cliente cliente = new Cliente();
+            String line = scanner.nextLine();
 
-                listCli.add(cliente);
-            }
-        } else {
-            file.createNewFile();
+            endChar = Cliente.LENGTH_NAME;
+            startChar = 0;
+            cliente.setName(line.substring(startChar, endChar).trim());
+
+            startChar = Cliente.LENGTH_NAME;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME;
+            cliente.setSurname(line.substring(startChar, endChar).trim());
+
+            startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY;
+            cliente.setCity(line.substring(startChar, endChar).trim());
+
+            startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE;
+            cliente.setProvince(line.substring(startChar, endChar).trim());
+
+            startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL;
+            cliente.setMail(line.substring(startChar, endChar).trim());
+
+            startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME;
+            cliente.setNickName(line.substring(startChar, endChar).trim());
+
+            startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD;
+            cliente.setPassword(line.substring(startChar, endChar).trim());
+
+            listCli.add(cliente);
         }
         scanner.close();
 
@@ -70,7 +90,7 @@ public class Parser {
      */
     public void UpdateFile(Cliente cliente) throws FileNotFoundException, IOException {
         try {
-            File file = new File("filename.txt");
+            File file = new File(path);
             if (file.exists()) {
                 writeToFile(file, cliente);
             } else {

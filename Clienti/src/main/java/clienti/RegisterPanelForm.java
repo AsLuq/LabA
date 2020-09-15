@@ -192,7 +192,6 @@ public class RegisterPanelForm extends javax.swing.JFrame {
         loginFrame.setVisible(true);
 
         this.dispose();
-
     }//GEN-LAST:event_jBtnCancelMouseClicked
 
     /**

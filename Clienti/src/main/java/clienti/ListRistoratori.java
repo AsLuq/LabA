@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import ristoratori.RestaurantParser;
+import ristoratori.Ristorante;
 
 /**
  *
@@ -17,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListRistoratori extends javax.swing.JFrame {
 
+    private Cliente cli;
+    
     /**
      * Creates new form ListClients
      * @throws java.lang.Exception
@@ -25,6 +29,15 @@ public class ListRistoratori extends javax.swing.JFrame {
         initComponents();
         jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
         populateJTable();
+        jLabelUenteLoggato.setText("Accesso Libero");
+    }
+    
+    public ListRistoratori(Cliente cli) throws Exception{        
+        this.cli = cli;
+        initComponents();
+        jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
+        populateJTable();
+        jLabelClientName.setText(cli.getName() + " " + cli.getSurname());
     }
 
     /**
@@ -38,6 +51,7 @@ public class ListRistoratori extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabelClientName = new javax.swing.JLabel();
+        jLabelUenteLoggato = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
@@ -56,7 +70,8 @@ public class ListRistoratori extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelClientName.setText("jLabel1");
+        jLabelUenteLoggato.setText("Utente Loggato: ");
+        jLabelUenteLoggato.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,13 +79,17 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabelUenteLoggato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelClientName, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabelClientName)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelClientName)
+                    .addComponent(jLabelUenteLoggato))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
@@ -151,11 +170,11 @@ public class ListRistoratori extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Cognome", "Comune", "Prov", "Email", "Psw"
+                "Nome", "Indirizzo", "Città", "Cap", "Prov", "Numero", "Sito Web", "Tipologia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -171,14 +190,14 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 77, Short.MAX_VALUE))
         );
 
         jLabelFilter.setText("Filtra per");
@@ -265,16 +284,18 @@ public class ListRistoratori extends javax.swing.JFrame {
      */
     public void populateJTable() throws Exception {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Parser parser = new Parser();
-        List<Cliente> listCli = parser.readFromFile();
-        Object[] rowData = new Object[6];
-        for (Cliente cli : listCli) {
-            rowData[0] = cli.getName();
-            rowData[1] = cli.getSurname();
-            rowData[2] = cli.getCity();
-            rowData[3] = cli.getProvince();
-            rowData[4] = cli.getMail();
-            rowData[5] = cli.getPassword();
+        RestaurantParser parser = new RestaurantParser();
+        List<Ristorante> listCli = parser.RestaurantReadFromFile();
+        Object[] rowData = new Object[8];
+        for (Ristorante rist : listCli) {
+            rowData[0] = rist.getRestaurantName();
+            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[2] = rist.getCity();
+            rowData[3] = rist.getCap();
+            rowData[4] = rist.getProvince();
+            rowData[5] = rist.getTelephoneNumber();
+            rowData[6] = rist.getWebSite();
+            rowData[7] = rist.getRestaurantType();
 
             model.addRow(rowData);
         }
@@ -341,6 +362,7 @@ public class ListRistoratori extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFilter;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelTipologia;
+    private javax.swing.JLabel jLabelUenteLoggato;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -1,13 +1,11 @@
 
 package ristoratori;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class RestaurantParser {
     
+    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + "/FileDati/eatAdvisor.dati";
     
     public RestaurantParser(){
     }
@@ -39,7 +38,10 @@ public class RestaurantParser {
     }
    
     public List<Ristorante> RestaurantReadFromFile() throws FileNotFoundException, IOException{
-        File file = new File("eatAdvisor.txt");
+        File file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
         Scanner scanner = new Scanner(file);
         List<Ristorante> tmpRestaurantList = new ArrayList<>();
         
@@ -67,9 +69,9 @@ public class RestaurantParser {
     }
 
     public void RestaurantWriteToFile(Ristorante restaurant) throws IOException {
-        File eatAdvisor = new File("eatAdvisor.txt");
+        File eatAdvisor = new File(path);
         if(eatAdvisor.exists()){
-            FileOutputStream restaurantFOP = new FileOutputStream("eatAdvisor.txt",true);
+            FileOutputStream restaurantFOP = new FileOutputStream(eatAdvisor, true);
             PrintWriter restaurantWriter = new PrintWriter(restaurantFOP);
             restaurantWriter.write("\n");
             restaurantWriter.write(calcStringLength(restaurant.getRestaurantName(),Ristorante.LENGTH_RESTAURANTNAME));
