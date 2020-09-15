@@ -9,6 +9,10 @@ import java.awt.Color;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import ristoratori.RestaurantParser;
 import ristoratori.Ristorante;
@@ -20,9 +24,10 @@ import ristoratori.Ristorante;
 public class ListRistoratori extends javax.swing.JFrame {
 
     private Cliente cli;
-    
+
     /**
      * Creates new form ListClients
+     *
      * @throws java.lang.Exception
      */
     public ListRistoratori() throws Exception {
@@ -30,14 +35,38 @@ public class ListRistoratori extends javax.swing.JFrame {
         jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
         populateJTable();
         jLabelUenteLoggato.setText("Accesso Libero");
+
+        ListSelectionModel model = jTable1.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!model.isSelectionEmpty()) {
+                    JOptionPane.showMessageDialog(null, jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                }
+
+            }
+
+        });
     }
-    
-    public ListRistoratori(Cliente cli) throws Exception{        
+
+    public ListRistoratori(Cliente cli) throws Exception {
         this.cli = cli;
         initComponents();
         jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
         populateJTable();
         jLabelClientName.setText(cli.getName() + " " + cli.getSurname());
+
+        ListSelectionModel model = jTable1.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!model.isSelectionEmpty()) {
+                    JOptionPane.showMessageDialog(null, jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                }
+
+            }
+
+        });
     }
 
     /**
@@ -170,11 +199,11 @@ public class ListRistoratori extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Indirizzo", "Città", "Cap", "Prov", "Numero", "Sito Web", "Tipologia"
+                "Id", "Nome", "Indirizzo", "Città", "Cap", "Prov", "Numero", "Sito Web", "Tipologia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -197,7 +226,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 77, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jLabelFilter.setText("Filtra per");
@@ -251,7 +280,7 @@ public class ListRistoratori extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -286,16 +315,17 @@ public class ListRistoratori extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         RestaurantParser parser = new RestaurantParser();
         List<Ristorante> listCli = parser.RestaurantReadFromFile();
-        Object[] rowData = new Object[8];
+        Object[] rowData = new Object[9];
         for (Ristorante rist : listCli) {
-            rowData[0] = rist.getRestaurantName();
-            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
-            rowData[2] = rist.getCity();
-            rowData[3] = rist.getCap();
-            rowData[4] = rist.getProvince();
-            rowData[5] = rist.getTelephoneNumber();
-            rowData[6] = rist.getWebSite();
-            rowData[7] = rist.getRestaurantType();
+            rowData[0] = "0";
+            rowData[1] = rist.getRestaurantName();
+            rowData[2] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[3] = rist.getCity();
+            rowData[4] = rist.getCap();
+            rowData[5] = rist.getProvince();
+            rowData[6] = rist.getTelephoneNumber();
+            rowData[7] = rist.getWebSite();
+            rowData[8] = rist.getRestaurantType();
 
             model.addRow(rowData);
         }

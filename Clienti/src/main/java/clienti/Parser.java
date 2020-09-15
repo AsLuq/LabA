@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,6 +30,7 @@ public class Parser {
      *
      * @author luqmanasghar
      * @return list of clients
+     * @throws java.lang.Exception
      */
     public List<Cliente> readFromFile() throws Exception {
         File file = new File(path);
@@ -72,6 +72,10 @@ public class Parser {
             startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME;
             endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD;
             cliente.setPassword(line.substring(startChar, endChar).trim());
+            
+            startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD;
+            endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD + Cliente.LENGTH_ID;
+            cliente.setId(Integer.parseInt(line.substring(startChar, endChar).trim()));
 
             listCli.add(cliente);
         }
@@ -88,7 +92,7 @@ public class Parser {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public void UpdateFile(Cliente cliente) throws FileNotFoundException, IOException {
+    public void UpdateFile(Cliente cliente) throws FileNotFoundException, IOException, Exception {
         try {
             File file = new File(path);
             if (file.exists()) {
@@ -133,10 +137,16 @@ public class Parser {
      * @author luqmanasghar
      * @param file
      * @param cliente client object
+     * @throws java.io.IOException
      */
-    public void writeToFile(File file, Cliente cliente) {
+    public void writeToFile(File file, Cliente cliente) throws IOException, Exception {
         Writer writer = null;
+        List<Cliente> listCli = null;
+        int lastCliId = 0;
         try {
+            listCli = readFromFile();
+            if(listCli.size() > 0)
+                lastCliId = listCli.get(listCli.size() - 1).getId();
             writer = new BufferedWriter(new FileWriter(file, true));
             writer.write("\n");
             writer.write(calcStringLength(cliente.getName(), Cliente.LENGTH_NAME));
@@ -146,12 +156,13 @@ public class Parser {
             writer.write(calcStringLength(cliente.getMail(), Cliente.LENGTH_MAIL));
             writer.write(calcStringLength(cliente.getNickName(), Cliente.LENGTH_NICKNAME));
             writer.write(calcStringLength(cliente.getPassword(), Cliente.LENGTH_PASSWORD));
+            writer.write(calcStringLength(Integer.toString(lastCliId + 1), Cliente.LENGTH_ID));
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 writer.close();
-            } catch (Exception ex) {/*ignore*/
+            } catch (IOException ex) {/*ignore*/
             }
         }
     }
