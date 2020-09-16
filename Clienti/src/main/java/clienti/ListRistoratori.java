@@ -289,19 +289,34 @@ public class ListRistoratori extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSearchMouseClicked
-        switch ((String) jComboBoxFilter.getSelectedItem()) {
-            case "Comune":
-
-                break;
-            case "Tipologia":
-
-                break;
-            case "Nome":
-
-                break;
-            case "Comune e Tipologia":
-
-                break;
+        try {                                           
+            RestaurantParser parser = new RestaurantParser();
+            this.listCli = new ArrayList<>();
+            try {
+                listCli = parser.RestaurantReadFromFile();
+            } catch (IOException ex) {
+                Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            switch ((String) jComboBoxFilter.getSelectedItem()) {
+                case "Comune":
+                    listCli = Sorts.findByCity(listCli, jTextFieldComune.getText());
+                    refreshJTable();
+                    break;
+                case "Tipologia":
+                    listCli = Sorts.findByType(listCli, jTextFieldTipologia.getText());
+                    refreshJTable();
+                    break;
+                case "Nome":
+                    listCli = Sorts.findByName(listCli, jTextFieldNome.getText());
+                    refreshJTable();
+                    break;
+                case "Comune e Tipologia":
+                    listCli = Sorts.findByCityAndType(listCli, jTextFieldComune.getText(), jTextFieldTipologia.getText());
+                    refreshJTable();
+                    break;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonSearchMouseClicked
 
@@ -327,6 +342,34 @@ public class ListRistoratori extends javax.swing.JFrame {
             rowData[7] = rist.getWebSite();
             rowData[8] = rist.getRestaurantType();
 
+            model.addRow(rowData);
+        }
+    }
+    
+     /**
+     * refresh jtable
+     *
+     * @author andreabaz
+     * @throws java.lang.Exception
+     */
+    public void refreshJTable() throws Exception {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        while (model.getRowCount() > 0)
+        {
+            model.removeRow(0);
+        }
+        Object[] rowData = new Object[9];
+        for (Ristorante rist : listCli) {
+            rowData[0] = rist.getRestaurantName();
+            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[2] = rist.getCity();
+            rowData[3] = rist.getCap();
+            rowData[4] = rist.getProvince();
+            rowData[5] = rist.getTelephoneNumber();
+            rowData[6] = rist.getWebSite();
+            rowData[7] = rist.getRestaurantType();
+            rowData[8] = rist.getRestaurantID();
+            
             model.addRow(rowData);
         }
     }
