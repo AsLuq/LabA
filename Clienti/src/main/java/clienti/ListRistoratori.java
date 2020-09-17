@@ -46,15 +46,15 @@ public class ListRistoratori extends javax.swing.JFrame {
 
                     Ristorante tmpRist = new Ristorante();
 
-                    tmpRist.setRestaurantID(Integer.parseInt((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1)));
-                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
-                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
-                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
-                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
-                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
-                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
-                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
-                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 9));
+                    tmpRist.setRestaurantID((int)jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
+                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
+                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
+                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
+                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
+                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
+                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
 
                     RecensioniGUI tmp = null;
                     try {
@@ -87,15 +87,15 @@ public class ListRistoratori extends javax.swing.JFrame {
 
                     Ristorante tmpRist = new Ristorante();
 
-                    tmpRist.setRestaurantID((int) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
-                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
-                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
-                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
-                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
-                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
-                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
-                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
-                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 9));
+                    tmpRist.setRestaurantID((int)jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
+                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
+                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
+                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
+                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
+                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
+                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
 
                     RecensioniGUI tmp = null;
                     try {
@@ -247,7 +247,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, true, true, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -256,6 +256,10 @@ public class ListRistoratori extends javax.swing.JFrame {
         });
         jTable1.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -270,7 +274,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 79, Short.MAX_VALUE))
+                .addGap(0, 81, Short.MAX_VALUE))
         );
 
         jLabelFilter.setText("Filtra per");
@@ -337,7 +341,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             RestaurantParser parser = new RestaurantParser();
             this.listCli = new ArrayList<>();
             try {
-                listCli = parser.RestaurantReadFromFile();
+                listCli = parser.ReadFromFile();
             } catch (IOException ex) {
                 Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -373,19 +377,18 @@ public class ListRistoratori extends javax.swing.JFrame {
     public void populateJTable() throws Exception {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         RestaurantParser parser = new RestaurantParser();
-        listCli = parser.RestaurantReadFromFile();
+        listCli = parser.ReadFromFile();
         Object[] rowData = new Object[9];
-        for (Ristorante rist : listCli) {
-            rowData[0] = rist.getRestaurantName();
-            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
-            rowData[2] = rist.getCity();
-            rowData[3] = rist.getCap();
-            rowData[4] = rist.getProvince();
-            rowData[5] = rist.getTelephoneNumber();
-            rowData[6] = rist.getWebSite();
-            rowData[7] = rist.getRestaurantType();
-            rowData[8] = rist.getRestaurantID();
-
+        for (Ristorante rist : listCli) {            
+            rowData[0] = rist.getRestaurantID();
+            rowData[1] = rist.getRestaurantName();
+            rowData[2] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[3] = rist.getCity();
+            rowData[4] = rist.getCap();
+            rowData[5] = rist.getProvince();
+            rowData[6] = rist.getTelephoneNumber();
+            rowData[7] = rist.getWebSite();
+            rowData[8] = rist.getRestaurantType();
             model.addRow(rowData);
         }
     }
@@ -403,15 +406,15 @@ public class ListRistoratori extends javax.swing.JFrame {
         }
         Object[] rowData = new Object[9];
         for (Ristorante rist : listCli) {
-            rowData[0] = rist.getRestaurantName();
-            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
-            rowData[2] = rist.getCity();
-            rowData[3] = rist.getCap();
-            rowData[4] = rist.getProvince();
-            rowData[5] = rist.getTelephoneNumber();
-            rowData[6] = rist.getWebSite();
-            rowData[7] = rist.getRestaurantType();
-            rowData[8] = rist.getRestaurantID();
+            rowData[0] = rist.getRestaurantID();
+            rowData[1] = rist.getRestaurantName();
+            rowData[2] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[3] = rist.getCity();
+            rowData[4] = rist.getCap();
+            rowData[5] = rist.getProvince();
+            rowData[6] = rist.getTelephoneNumber();
+            rowData[7] = rist.getWebSite();
+            rowData[8] = rist.getRestaurantType();
 
             model.addRow(rowData);
         }

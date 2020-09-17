@@ -15,7 +15,7 @@ public class Ristoratori {
         // restaurantLogin.setVisible(true);
         
          RestaurantParser provParser = new RestaurantParser(); 
-         List<Ristorante> tmpList = provParser.RestaurantReadFromFile();
+         List<Ristorante> tmpList = provParser.ReadFromFile();
          System.out.println(tmpList);
     }
 }

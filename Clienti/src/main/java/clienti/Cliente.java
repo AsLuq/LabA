@@ -13,7 +13,7 @@ public class Cliente {
     private String province;
     private String mail;
     private String nickName;
-    private String password;    
+    private String password;
     private int id;
 
 
@@ -27,7 +27,7 @@ public class Cliente {
     static final int LENGTH_ID = 3;
     // </editor-fold>
 
-    public Cliente(String name, String surname, String city, String province, String mail, String nickName, String password) {
+    public Cliente(String name, String surname, String city, String province, String mail, String nickName, String password, int id) {
         this.name = name;
         this.surname = surname;
         this.city = city;
@@ -35,17 +35,15 @@ public class Cliente {
         this.mail = mail;
         this.nickName = nickName;
         this.password = password;
+        this.id = id;
     }
 
     public Cliente() {}
     
     // <editor-fold desc="Getters & Setters"> 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId(){
+        return id;
     }
     public String getName() {
         return name;
@@ -101,6 +99,9 @@ public class Cliente {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public void setId(int id){
+        this.id = id;
     }
     
     //</editor-fold>

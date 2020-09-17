@@ -205,7 +205,7 @@ public class SecondaryRestaurantGUI extends JFrame {
                             comboRestaurant.setSelectedIndex(0);
                             
                             try {
-				tmpEatAdvisorParser.RestaurantWriteToFile(tmpRestaurant);
+				tmpEatAdvisorParser.WriteToFile(tmpRestaurant);
                             } catch (IOException e1) {
                                 
                             }

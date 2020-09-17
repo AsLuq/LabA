@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class RestaurantParser {
     
-    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + "/FileDati/eatAdvisor.dati";
+    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "eatAdvisor.dati";
     private int lastListID;
     
     public RestaurantParser(){
@@ -38,7 +38,7 @@ public class RestaurantParser {
         return tmpString;
     }
    
-    public List<Ristorante> RestaurantReadFromFile() throws FileNotFoundException, IOException{
+    public List<Ristorante> ReadFromFile() throws FileNotFoundException, IOException{
         File file = new File(path);
         if (!file.exists()) {
             file.createNewFile();
@@ -59,6 +59,7 @@ public class RestaurantParser {
             tmpRestaurant.setTelephoneNumber(tmpRestaurantLine.substring(114, 124).trim());
             tmpRestaurant.setWebSite(tmpRestaurantLine.substring(124, 224).trim());
             tmpRestaurant.setRestaurantType(tmpRestaurantLine.substring(224, 232).trim());
+            tmpRestaurant.setRestaurantID(Integer.parseInt(tmpRestaurantLine.substring(232, 235).trim()));
             
             tmpRestaurantList.add(tmpRestaurant);
 
@@ -68,8 +69,8 @@ public class RestaurantParser {
         return tmpRestaurantList;
     }
 
-    public void RestaurantWriteToFile(Ristorante restaurant) throws IOException {
-        List<Ristorante> restaurantList = RestaurantReadFromFile();
+    public void WriteToFile(Ristorante restaurant) throws IOException {
+        List<Ristorante> restaurantList = ReadFromFile();
         if (restaurantList.size() > 0)
             lastListID = restaurantList.size();
         else
@@ -89,7 +90,7 @@ public class RestaurantParser {
             restaurantWriter.write(calcStringLength(restaurant.getTelephoneNumber(),Ristorante.LENGTH_TELEPHONENUMBER));
             restaurantWriter.write(calcStringLength(restaurant.getWebSite(),Ristorante.LENGTH_WEBSITE));
             restaurantWriter.write(calcStringLength(restaurant.getRestaurantType(),Ristorante.LENGTH_RESTAURANTTYPE));
-            restaurantWriter.write(calcStringLength(Integer.toString(lastListID++), Ristorante.LENGTH_RESTAURANT_ID));
+            restaurantWriter.write(calcStringLength(Integer.toString(lastListID + 1), Ristorante.LENGTH_RESTAURANT_ID));
                 
             restaurantWriter.close();
         }else if(eatAdvisor.createNewFile()){
@@ -104,7 +105,7 @@ public class RestaurantParser {
             restaurantWriter.write(calcStringLength(restaurant.getTelephoneNumber(),Ristorante.LENGTH_TELEPHONENUMBER));
             restaurantWriter.write(calcStringLength(restaurant.getWebSite(),Ristorante.LENGTH_WEBSITE));
             restaurantWriter.write(calcStringLength(restaurant.getRestaurantType(),Ristorante.LENGTH_RESTAURANTTYPE));
-            restaurantWriter.write(calcStringLength(Integer.toString(lastListID++), Ristorante.LENGTH_RESTAURANT_ID));
+            restaurantWriter.write(calcStringLength(Integer.toString(lastListID + 1), Ristorante.LENGTH_RESTAURANT_ID));
             
             restaurantWriter.close();
             }	

@@ -1,24 +1,16 @@
 package clienti;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import ristoratori.Ristorante;
-
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,12 +34,12 @@ public class RecensioniGUI extends JFrame {
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     frame = new RecensioniGUI(new Ristorante(), false);
                     frame.setVisible(true);
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -55,6 +47,9 @@ public class RecensioniGUI extends JFrame {
 
     /**
      * Create the frame.
+     * @param tmpRist
+     * @param logged
+     * @throws java.io.IOException
      */
     public RecensioniGUI(Ristorante tmpRist, Boolean logged) throws IOException, Exception {
         this.ristorante = tmpRist;
@@ -238,7 +233,7 @@ public class RecensioniGUI extends JFrame {
 
             List<Recensione> reviewList = p.readRecensioniFromFile();
             List<Cliente> listCli = p.readFromFile();
-            List<Ristorante> restaurantList = rp.RestaurantReadFromFile();
+            List<Ristorante> restaurantList = rp.ReadFromFile();
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             Object[] rowData = new Object[3];
             for (Recensione rec : reviewList) {

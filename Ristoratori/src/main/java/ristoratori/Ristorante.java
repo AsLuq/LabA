@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Ristorante {
     
-    // <editor-fold desc = "Attributes">
+    // <editor-fold desc="Attributes">
 	
 	private String restaurantName;  
 	private String address;          
@@ -23,6 +23,7 @@ public class Ristorante {
 	private String telephoneNumber;    
 	private String webSite;         
 	private String restaurantType;  
+        private int restaurantID;
 	
         static final int LENGTH_RESTAURANTNAME = 30;
 	static final int LENGHT_ADDRESS = 30;
@@ -33,8 +34,9 @@ public class Ristorante {
 	static final int LENGTH_TELEPHONENUMBER = 10;
 	static final int LENGTH_WEBSITE = 100;
         static final int LENGTH_RESTAURANTTYPE = 8;
+        static final int LENGTH_RESTAURANT_ID = 3;
         
-        //<editor-fold>
+        //</editor-fold>
         
         /**
          * restaurantName     0 - 29
@@ -49,9 +51,7 @@ public class Ristorante {
          * 
          */
 	// caratteri totali 231
-        
-        // <editor-fold desk = "Builders">
-        
+
         public Ristorante(){
             
         }
@@ -68,8 +68,7 @@ public class Ristorante {
             this.restaurantType = restaurantType;
         }
 
-        // <editor-fold desc = "Getters&Setters">
-        
+        //<editor-fold desc="Getters&Setters">
         public String getRestaurantName() {
             return restaurantName;
         }
@@ -142,8 +141,16 @@ public class Ristorante {
             this.restaurantType = restaurantType;
         }
 	
+        public int getRestaurantID() {
+            return restaurantID;
+        }
+
+        public void setRestaurantID(int restaurantID) {
+            this.restaurantID = restaurantID;
+        }
+        //</editor-fold>
         
-        //<editor-fold desc = "Methods";
+        //<editor-fold desc="Methods">;
         
         public List<Ristorante> restaurantList(){
             List<Ristorante> RestaurantList = new ArrayList();
@@ -153,7 +160,5 @@ public class Ristorante {
         public void printRestaurant(){
             System.out.println(restaurantName + " " + address + " " + buildingNumber + " " + city + " " + province + " " + cap + " " + telephoneNumber + " " + webSite + " " + restaurantType );
         }
-        
+        //</editor-fold>
 }
-    
-
