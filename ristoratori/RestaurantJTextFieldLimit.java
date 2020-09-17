@@ -10,12 +10,13 @@ import javax.swing.text.AttributeSet;
  */
 
 public class RestaurantJTextFieldLimit extends PlainDocument{
-    private int limit;
+    private final int limit;
     
     public RestaurantJTextFieldLimit(int lim){
         this.limit = lim;
     }
     
+    @Override
     public void insertString(int offset, String str, AttributeSet set) throws BadLocationException{
         if(str == null)
             return;

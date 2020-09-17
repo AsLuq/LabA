@@ -8,6 +8,7 @@ package clienti;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import ristoratori.Ristorante;
 
@@ -33,8 +34,9 @@ public class Sorts {
      * @param city
      * @return
      */
-    public static ArrayList<String> findByCity(List<Ristorante> l, String city)
+    public static ArrayList<Ristorante> findByCity(List<Ristorante> l, String city)
     {
+        /*
         ArrayList<String> listaNomiR = new ArrayList<>();
         for (Ristorante r : l)
         {
@@ -44,6 +46,22 @@ public class Sorts {
         }
         Collections.sort(listaNomiR);
         return listaNomiR;
+        */
+        
+        ArrayList<Ristorante> filteredList = new ArrayList<>();
+        for (Ristorante r : l) {
+            if (r.getCity().equals(city)) {
+                filteredList.add(r);
+            }
+        }
+        Collections.sort(filteredList, new Comparator<Ristorante>()
+        {
+            public int compare(Ristorante r1, Ristorante r2)
+            {
+                return Integer.valueOf(r1.getRestaurantName().compareTo(r2.getRestaurantName()));
+            }
+        });
+        return filteredList;
     }
     
     /**
@@ -55,7 +73,8 @@ public class Sorts {
      * @param type
      * @return
      */
-    public static ArrayList<String> findByType(List<Ristorante> l, String type) {
+    public static ArrayList<Ristorante> findByType(List<Ristorante> l, String type) {
+        /*
         ArrayList<String> listaNomiR = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getRestaurantType().equals(type)) {
@@ -64,6 +83,19 @@ public class Sorts {
         }
         Collections.sort(listaNomiR);
         return listaNomiR;
+        */
+        ArrayList<Ristorante> filteredList = new ArrayList<>();
+        for (Ristorante r : l) {
+            if (r.getRestaurantType().equals(type)) {
+                filteredList.add(r);
+            }
+        }
+        Collections.sort(filteredList, new Comparator<Ristorante>() {
+            public int compare(Ristorante r1, Ristorante r2) {
+                return Integer.valueOf(r1.getRestaurantName().compareTo(r2.getRestaurantName()));
+            }
+        });
+        return filteredList;
     }
     
     /**
@@ -75,7 +107,7 @@ public class Sorts {
      * @param name
      * @return
      */
-    public static ArrayList<String> findByName(List<Ristorante> l, String name)
+    public static ArrayList<Ristorante> findByName(List<Ristorante> l, String name)
     {
         //questo metodo si può implementare anche con le wildcard verificando almeno le prime 3 lettere
         /* NOT WORKING
@@ -87,14 +119,18 @@ public class Sorts {
         }*/
         
         //WORKS
-        ArrayList<String> listaNomiR = new ArrayList<>();
+        ArrayList<Ristorante> filteredList = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getRestaurantName().equals(name)) {
-                listaNomiR.add(r.getRestaurantName());
+                filteredList.add(r);
             }
         }
-        Collections.sort(listaNomiR);
-        return listaNomiR;
+        Collections.sort(filteredList, new Comparator<Ristorante>() {
+            public int compare(Ristorante r1, Ristorante r2) {
+                return Integer.valueOf(r1.getRestaurantName().compareTo(r2.getRestaurantName()));
+            }
+        });
+        return filteredList;
     }
     
     /**
@@ -107,8 +143,9 @@ public class Sorts {
      * @param type
      * @return
      */
-    public static ArrayList<String> findByCityAndType(List<Ristorante> l, String city, String type)
+    public static ArrayList<Ristorante> findByCityAndType(List<Ristorante> l, String city, String type)
     {
+        /*
         ArrayList<String> listaNomiR = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getCity().equals(city) && r.getRestaurantType().equals(type)) {
@@ -117,5 +154,19 @@ public class Sorts {
         }
         Collections.sort(listaNomiR);
         return listaNomiR;
+        */
+        
+        ArrayList<Ristorante> filteredList = new ArrayList<>();
+        for (Ristorante r : l) {
+            if (r.getCity().equals(city) && r.getRestaurantType().equals(type)) {
+                filteredList.add(r);
+            }
+        }
+        Collections.sort(filteredList, new Comparator<Ristorante>() {
+            public int compare(Ristorante r1, Ristorante r2) {
+                return Integer.valueOf(r1.getRestaurantName().compareTo(r2.getRestaurantName()));
+            }
+        });
+        return filteredList;
     }
 }
