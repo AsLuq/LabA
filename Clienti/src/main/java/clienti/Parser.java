@@ -22,7 +22,7 @@ public class Parser {
     public Parser() {
     }
 
-    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + "/FileDati/Utenti.dati";
+    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Utenti.dati";
 
     // <editor-fold desc="methods">
     /**
