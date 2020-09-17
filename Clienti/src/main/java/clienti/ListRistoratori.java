@@ -6,10 +6,11 @@
 package clienti;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,6 +25,7 @@ import ristoratori.Ristorante;
 public class ListRistoratori extends javax.swing.JFrame {
 
     private Cliente cli;
+    private List<Ristorante> listCli;
 
     /**
      * Creates new form ListClients
@@ -40,12 +42,33 @@ public class ListRistoratori extends javax.swing.JFrame {
         model.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!model.isSelectionEmpty()) {
-                    JOptionPane.showMessageDialog(null, jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                if (!model.getValueIsAdjusting()) {
+
+                    Ristorante tmpRist = new Ristorante();
+
+                    tmpRist.setRestaurantID(Integer.parseInt((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1)));
+                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
+                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
+                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
+                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
+                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
+                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
+                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 9));
+
+                    RecensioniGUI tmp = null;
+                    try {
+                        tmp = new RecensioniGUI(tmpRist, false);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    tmp.setLocationRelativeTo(null);
+                    tmp.setVisible(true);
+
                 }
-
             }
-
         });
     }
 
@@ -60,12 +83,33 @@ public class ListRistoratori extends javax.swing.JFrame {
         model.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!model.isSelectionEmpty()) {
-                    JOptionPane.showMessageDialog(null, jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                if (!model.getValueIsAdjusting()) {
+
+                    Ristorante tmpRist = new Ristorante();
+
+                    tmpRist.setRestaurantID((int) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
+                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
+                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
+                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
+                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
+                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
+                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
+                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 9));
+
+                    RecensioniGUI tmp = null;
+                    try {
+                        tmp = new RecensioniGUI(tmpRist, false);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    tmp.setLocationRelativeTo(null);
+                    tmp.setVisible(true);
+
                 }
-
             }
-
         });
     }
 
@@ -226,7 +270,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 79, Short.MAX_VALUE))
         );
 
         jLabelFilter.setText("Filtra per");
@@ -247,7 +291,7 @@ public class ListRistoratori extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFilter)
                     .addComponent(jComboBoxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,7 +324,7 @@ public class ListRistoratori extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -289,19 +333,34 @@ public class ListRistoratori extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSearchMouseClicked
-        switch ((String) jComboBoxFilter.getSelectedItem()) {
-            case "Comune":
-
-                break;
-            case "Tipologia":
-
-                break;
-            case "Nome":
-
-                break;
-            case "Comune e Tipologia":
-
-                break;
+        try {
+            RestaurantParser parser = new RestaurantParser();
+            this.listCli = new ArrayList<>();
+            try {
+                listCli = parser.RestaurantReadFromFile();
+            } catch (IOException ex) {
+                Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            switch ((String) jComboBoxFilter.getSelectedItem()) {
+                case "Comune":
+                    listCli = Sorts.findByCity(listCli, jTextFieldComune.getText());
+                    refreshJTable();
+                    break;
+                case "Tipologia":
+                    listCli = Sorts.findByType(listCli, jTextFieldTipologia.getText());
+                    refreshJTable();
+                    break;
+                case "Nome":
+                    listCli = Sorts.findByName(listCli, jTextFieldNome.getText());
+                    refreshJTable();
+                    break;
+                case "Comune e Tipologia":
+                    listCli = Sorts.findByCityAndType(listCli, jTextFieldComune.getText(), jTextFieldTipologia.getText());
+                    refreshJTable();
+                    break;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonSearchMouseClicked
 
@@ -314,18 +373,45 @@ public class ListRistoratori extends javax.swing.JFrame {
     public void populateJTable() throws Exception {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         RestaurantParser parser = new RestaurantParser();
-        List<Ristorante> listCli = parser.RestaurantReadFromFile();
+        listCli = parser.RestaurantReadFromFile();
         Object[] rowData = new Object[9];
         for (Ristorante rist : listCli) {
-            rowData[0] = "0";
-            rowData[1] = rist.getRestaurantName();
-            rowData[2] = rist.getAddress() + " " + rist.getBuildingNumber();
-            rowData[3] = rist.getCity();
-            rowData[4] = rist.getCap();
-            rowData[5] = rist.getProvince();
-            rowData[6] = rist.getTelephoneNumber();
-            rowData[7] = rist.getWebSite();
-            rowData[8] = rist.getRestaurantType();
+            rowData[0] = rist.getRestaurantName();
+            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[2] = rist.getCity();
+            rowData[3] = rist.getCap();
+            rowData[4] = rist.getProvince();
+            rowData[5] = rist.getTelephoneNumber();
+            rowData[6] = rist.getWebSite();
+            rowData[7] = rist.getRestaurantType();
+            rowData[8] = rist.getRestaurantID();
+
+            model.addRow(rowData);
+        }
+    }
+
+    /**
+     * refresh jtable
+     *
+     * @author andreabaz
+     * @throws java.lang.Exception
+     */
+    public void refreshJTable() throws Exception {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        Object[] rowData = new Object[9];
+        for (Ristorante rist : listCli) {
+            rowData[0] = rist.getRestaurantName();
+            rowData[1] = rist.getAddress() + " " + rist.getBuildingNumber();
+            rowData[2] = rist.getCity();
+            rowData[3] = rist.getCap();
+            rowData[4] = rist.getProvince();
+            rowData[5] = rist.getTelephoneNumber();
+            rowData[6] = rist.getWebSite();
+            rowData[7] = rist.getRestaurantType();
+            rowData[8] = rist.getRestaurantID();
 
             model.addRow(rowData);
         }
@@ -341,6 +427,15 @@ public class ListRistoratori extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldComune.setText("");
         jTextFieldTipologia.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        try {
+            populateJTable();
+        } catch (Exception ex) {
+            Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**

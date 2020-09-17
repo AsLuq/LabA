@@ -23,6 +23,7 @@ public class Parser {
     }
 
     public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Utenti.dati";
+    public static String pathRecensioni = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Recensioni.dati";
 
     // <editor-fold desc="methods">
     /**
@@ -72,7 +73,7 @@ public class Parser {
             startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME;
             endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD;
             cliente.setPassword(line.substring(startChar, endChar).trim());
-            
+
             startChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD;
             endChar = Cliente.LENGTH_NAME + Cliente.LENGTH_SURNAME + Cliente.LENGTH_CITY + Cliente.LENGTH_PROVINCE + Cliente.LENGTH_MAIL + Cliente.LENGTH_NICKNAME + Cliente.LENGTH_PASSWORD + Cliente.LENGTH_ID;
             cliente.setId(Integer.parseInt(line.substring(startChar, endChar).trim()));
@@ -145,8 +146,9 @@ public class Parser {
         int lastCliId = 0;
         try {
             listCli = readFromFile();
-            if(listCli.size() > 0)
+            if (listCli.size() > 0) {
                 lastCliId = listCli.get(listCli.size() - 1).getId();
+            }
             writer = new BufferedWriter(new FileWriter(file, true));
             writer.write("\n");
             writer.write(calcStringLength(cliente.getName(), Cliente.LENGTH_NAME));
@@ -165,6 +167,61 @@ public class Parser {
             } catch (IOException ex) {/*ignore*/
             }
         }
+    }
+
+    public void addRecensioni(File file, Recensione recensione) throws IOException, Exception {
+        Writer writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write("\n");
+            writer.write(calcStringLength(Integer.toString(recensione.getClientID()), Recensione.LENGTH_CLIENTID));
+            writer.write(calcStringLength(Integer.toString(recensione.getRestaurantID()), Recensione.LENGTH_RESTAURANTID));
+            writer.write(calcStringLength(Integer.toString(recensione.getStars()), Recensione.LENGTH_STARS));
+            writer.write(calcStringLength(recensione.getRecensione(), Recensione.LENGTH_RESTAURANTREVIEWS));
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException ex) {/*ignore*/
+            }
+        }
+    }
+
+    public List<Recensione> readRecensioniFromFile() throws Exception {
+        File file = new File(pathRecensioni);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        Scanner scanner = new Scanner(file);
+        List<Recensione> tmpList = new ArrayList<>();
+        int startChar, endChar;
+
+        while (scanner.hasNextLine()) {
+            Recensione tmpRecensione = new Recensione();
+            String line = scanner.nextLine();
+
+            endChar = Recensione.LENGTH_CLIENTID;
+            startChar = 0;
+            tmpRecensione.setClientID(Integer.parseInt(line.substring(startChar, endChar).trim()));
+
+            startChar = Recensione.LENGTH_CLIENTID;
+            endChar = Recensione.LENGTH_CLIENTID + Recensione.LENGTH_RESTAURANTID;
+            tmpRecensione.setRestaurantID(Integer.parseInt(line.substring(startChar, endChar).trim()));
+
+            startChar = Recensione.LENGTH_CLIENTID + Recensione.LENGTH_RESTAURANTID;
+            endChar = Recensione.LENGTH_CLIENTID + Recensione.LENGTH_RESTAURANTID + Recensione.LENGTH_STARS;
+            tmpRecensione.setStars(Integer.parseInt(line.substring(startChar, endChar).trim()));
+
+            startChar = Recensione.LENGTH_CLIENTID + Recensione.LENGTH_RESTAURANTID + Recensione.LENGTH_STARS;
+            endChar = Recensione.LENGTH_CLIENTID + Recensione.LENGTH_RESTAURANTID + Recensione.LENGTH_STARS + Recensione.LENGTH_RESTAURANTREVIEWS;
+            tmpRecensione.setRecensione(line.substring(startChar, endChar).trim());
+
+            tmpList.add(tmpRecensione);
+        }
+        scanner.close();
+
+        return tmpList;
     }
     // </editor-fold>
 }
