@@ -59,8 +59,6 @@ public class ListRistoratori extends javax.swing.JFrame {
                     RecensioniGUI tmp = null;
                     try {
                         tmp = new RecensioniGUI(tmpRist, false);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (Exception ex) {
                         Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -100,8 +98,6 @@ public class ListRistoratori extends javax.swing.JFrame {
                     RecensioniGUI tmp = null;
                     try {
                         tmp = new RecensioniGUI(tmpRist, false);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (Exception ex) {
                         Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -247,7 +243,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -274,7 +270,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 81, Short.MAX_VALUE))
+                .addGap(0, 83, Short.MAX_VALUE))
         );
 
         jLabelFilter.setText("Filtra per");

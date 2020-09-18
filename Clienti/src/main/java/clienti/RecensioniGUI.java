@@ -1,256 +1,517 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package clienti;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import ristoratori.Ristorante;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
+import java.awt.Color;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ristoratori.RestaurantParser;
-import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import ristoratori.RestaurantParser;
+import ristoratori.Ristorante;
 
-public class RecensioniGUI extends JFrame {
+/**
+ *
+ * @author crist
+ */
+public class RecensioniGUI extends javax.swing.JFrame {
 
-    // Variables declaration - do not modify   
-    public JPanel contentPane;
-    static RecensioniGUI frame;
-    protected Ristorante ristorante = null;
+    protected Ristorante rist = null;
     protected Boolean logged = false;
-    private JTable table;
 
     /**
-     * Launch the application.
+     * Creates new form RecensioniGUI
      *
-     * @param args
+     * @param tmpRec restaurant clicked from ListRistoratori
+     * @param logged client logged
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
+    public RecensioniGUI(Ristorante tmpRec, Boolean logged) throws Exception {
+        this.rist = tmpRec;
+        this.logged = logged;
+        initComponents();
+        jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
+        jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(550);
+        populateJTable();
+
+        Parser tmpParser = new Parser();
+        List<Recensione> tmpListRece = tmpParser.readRecensioniFromFile();
+
+        int contatore1S = 0;
+        int contatore2S = 0;
+        int contatore3S = 0;
+        int contatore4S = 0;
+        int contatore5S = 0;
+
+        for (Recensione rece : tmpListRece) {
+            if (rece.getStars() == 1) {
+                contatore1S += 1;
+
+            } else if (rece.getStars() == 2) {
+                contatore2S += 1;
+
+            } else if (rece.getStars() == 3) {
+                contatore3S += 1;
+
+            } else if (rece.getStars() == 4) {
+                contatore4S += 1;
+
+            } else if (rece.getStars() == 5) {
+                contatore5S += 1;
+
+            }
+        }
+        jLabelGet1Stars.setText(String.valueOf(contatore1S));
+        jLabelGet2Stars.setText(String.valueOf(contatore2S));
+        jLabelGet3Stars.setText(String.valueOf(contatore3S));
+        jLabelGet4Stars.setText(String.valueOf(contatore4S));
+        jLabelGet5Stars.setText(String.valueOf(contatore5S));
+        
+         /*   for (Recensione rece : tmpListRece) {
+            for (int contatore1S = 0; rece.getStars() == 1; contatore1S++) {
+                jLabelGet1Stars.setText(String.valueOf(contatore1S));
+
+            }
+            for (int contatore2S = 0; rece.getStars() == 2; contatore2S++) {
+                jLabelGet2Stars.setText(String.valueOf(contatore2S));
+
+            }
+            for (int contatore3S = 0; rece.getStars() == 3; contatore3S++) {
+                jLabelGet3Stars.setText(String.valueOf(contatore3S));
+
+            }
+            for (int contatore4S = 0; rece.getStars() == 4; contatore4S++) {
+                jLabelGet4Stars.setText(String.valueOf(contatore4S));
+
+            }
+            for (int contatore5S = 0; rece.getStars() == 5; contatore5S++) {
+                jLabelGet5Stars.setText(String.valueOf(contatore5S));
+
+            }
+
+        }
+         */
+        ListSelectionModel model = jTable1.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void run() {
-                try {
-                    frame = new RecensioniGUI(new Ristorante(), false);
-                    frame.setVisible(true);
-                } catch (Exception e) {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!model.getValueIsAdjusting()) {
+                    try {
+
+                        Parser tmpParser = new Parser();
+                        List<Cliente> listCli = tmpParser.readFromFile();
+                        List<Recensione> listRece = tmpParser.readRecensioniFromFile();
+                        for (Recensione rece : listRece) {
+                            for (Cliente cli : listCli) {
+                                if (rece.getClientID() == cli.getId()) {
+                                    jLabelReceCompleta.setText(rece.getRecensione());
+                                }
+                            }
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
             }
         });
+
+        jLabelGetName.setText(rist.getRestaurantName());
+        jLabelGetAddress.setText(rist.getAddress());
+        jLabelGetCity.setText(rist.getCity());
+        jLabelGetProvince.setText(rist.getProvince());
+        jLabelGetCap.setText(rist.getCap());
+        jLabelGetNumber.setText(rist.getTelephoneNumber());
+        jLabelGetWebsite.setText(rist.getWebSite());
+        jLabelGetType.setText(rist.getRestaurantType());
+
+    }
+
+    private RecensioniGUI() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
-     * Create the frame.
-     * @param tmpRist
-     * @param logged
-     * @throws java.io.IOException
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
-    public RecensioniGUI(Ristorante tmpRist, Boolean logged) throws IOException, Exception {
-        this.ristorante = tmpRist;
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 630, 735);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
+        jLabelName = new javax.swing.JLabel();
+        jLabelAddress = new javax.swing.JLabel();
+        jLabelCity = new javax.swing.JLabel();
+        jLabelProvince = new javax.swing.JLabel();
+        jLabelCap = new javax.swing.JLabel();
+        jLabelNumber = new javax.swing.JLabel();
+        jLabelWebsite = new javax.swing.JLabel();
+        jLabelType = new javax.swing.JLabel();
+        jLabel1StarReview = new javax.swing.JLabel();
+        jLabel2StarReviews = new javax.swing.JLabel();
+        jLabel3StarsReviews = new javax.swing.JLabel();
+        jLabel14StarsReviews = new javax.swing.JLabel();
+        jLabel5StarsReviews = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabelRecCompleta = new javax.swing.JLabel();
+        jLabelGetName = new javax.swing.JLabel();
+        jLabelGetAddress = new javax.swing.JLabel();
+        jLabelGetCity = new javax.swing.JLabel();
+        jLabelGetProvince = new javax.swing.JLabel();
+        jLabelGetCap = new javax.swing.JLabel();
+        jLabelGetNumber = new javax.swing.JLabel();
+        jLabelGetWebsite = new javax.swing.JLabel();
+        jLabelGetType = new javax.swing.JLabel();
+        jLabelGet1Stars = new javax.swing.JLabel();
+        jLabelGet2Stars = new javax.swing.JLabel();
+        jLabelGet4Stars = new javax.swing.JLabel();
+        jLabelGet3Stars = new javax.swing.JLabel();
+        jLabelGet5Stars = new javax.swing.JLabel();
+        jLabelReceCompleta = new javax.swing.JLabel();
 
-        JLabel lblRestaurantName = new JLabel("Restaurant name: ");
-        lblRestaurantName.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblRestaurantName.setBounds(10, 11, 125, 25);
-        contentPane.add(lblRestaurantName);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        JLabel lblAddress = new JLabel("Address: ");
-        lblAddress.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblAddress.setBounds(10, 45, 125, 25);
-        contentPane.add(lblAddress);
+        jLabelName.setText("Name");
+        jLabelName.setToolTipText("");
 
-        JLabel lblCity = new JLabel("City");
-        lblCity.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblCity.setBounds(10, 81, 125, 25);
-        contentPane.add(lblCity);
+        jLabelAddress.setText("Address");
+        jLabelAddress.setToolTipText("");
 
-        JLabel lblProvince = new JLabel("Province: ");
-        lblProvince.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblProvince.setBounds(10, 117, 125, 25);
-        contentPane.add(lblProvince);
+        jLabelCity.setText("City");
+        jLabelCity.setToolTipText("");
 
-        JLabel lblPostalCode = new JLabel("Postal Code: ");
-        lblPostalCode.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblPostalCode.setBounds(10, 153, 125, 25);
-        contentPane.add(lblPostalCode);
+        jLabelProvince.setText("Province");
+        jLabelProvince.setToolTipText("");
 
-        JLabel lblTelephoneNumber = new JLabel("Telephone Number");
-        lblTelephoneNumber.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblTelephoneNumber.setBounds(10, 189, 125, 25);
-        contentPane.add(lblTelephoneNumber);
+        jLabelCap.setText("Cap");
+        jLabelCap.setToolTipText("");
 
-        JLabel lblWebsite = new JLabel("Website: ");
-        lblWebsite.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblWebsite.setBounds(10, 225, 125, 25);
-        contentPane.add(lblWebsite);
+        jLabelNumber.setText("Number");
+        jLabelNumber.setToolTipText("");
 
-        JLabel lblRestaurantType = new JLabel("Restaurant Type: ");
-        lblRestaurantType.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblRestaurantType.setBounds(10, 261, 125, 25);
-        contentPane.add(lblRestaurantType);
+        jLabelWebsite.setText("Website");
+        jLabelWebsite.setToolTipText("");
 
-        JLabel lblGetRestName = new JLabel(ristorante.getRestaurantName());
-        lblGetRestName.setBounds(145, 12, 150, 25);
-        contentPane.add(lblGetRestName);
+        jLabelType.setText("Type");
+        jLabelType.setToolTipText("");
 
-        JLabel lblGetAddress = new JLabel(ristorante.getAddress());
-        lblGetAddress.setBounds(145, 46, 150, 25);
-        contentPane.add(lblGetAddress);
+        jLabel1StarReview.setText("1 Star Reviews");
 
-        JLabel lblGetCity = new JLabel(ristorante.getCity());
-        lblGetCity.setBounds(145, 81, 150, 25);
-        contentPane.add(lblGetCity);
+        jLabel2StarReviews.setText("2 Stars Reviews");
 
-        JLabel lblGetProvince = new JLabel(ristorante.getProvince());
-        lblGetProvince.setBounds(145, 117, 150, 25);
-        contentPane.add(lblGetProvince);
+        jLabel3StarsReviews.setText("3 Stars Reviews");
 
-        JLabel lblGetPostalcode = new JLabel(ristorante.getCap());
-        lblGetPostalcode.setBounds(145, 153, 150, 25);
-        contentPane.add(lblGetPostalcode);
+        jLabel14StarsReviews.setText("4 Stars Reviews");
 
-        JLabel lblGetTelepNumb = new JLabel(ristorante.getTelephoneNumber());
-        lblGetTelepNumb.setBounds(145, 189, 150, 25);
-        contentPane.add(lblGetTelepNumb);
+        jLabel5StarsReviews.setText("5 Stars Reviews");
 
-        JLabel lblgetWebSite = new JLabel(ristorante.getWebSite());
-        lblgetWebSite.setBounds(145, 225, 425, 25);
-        contentPane.add(lblgetWebSite);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        JLabel lblgetRestType = new JLabel(ristorante.getRestaurantType());
-        lblgetRestType.setBounds(145, 261, 150, 25);
-        contentPane.add(lblgetRestType);
-
-        JLabel lbl1Star = new JLabel("1 Star Reviews: ");
-        lbl1Star.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lbl1Star.setBounds(400, 17, 125, 25);
-        contentPane.add(lbl1Star);
-
-        JLabel lbl2Stars = new JLabel("2 Stars Reviews: ");
-        lbl2Stars.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lbl2Stars.setBounds(400, 51, 125, 25);
-        contentPane.add(lbl2Stars);
-
-        JLabel lbl3Stars = new JLabel("3 Stars Reviews: ");
-        lbl3Stars.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lbl3Stars.setBounds(400, 87, 125, 25);
-        contentPane.add(lbl3Stars);
-
-        JLabel lbl4Stars = new JLabel("4 Stars Reviews: ");
-        lbl4Stars.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lbl4Stars.setBounds(400, 123, 125, 25);
-        contentPane.add(lbl4Stars);
-
-        JLabel lbl5Stars = new JLabel("5 Stars Reviews: ");
-        lbl5Stars.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lbl5Stars.setBounds(400, 159, 125, 25);
-        contentPane.add(lbl5Stars);
-
-        JLabel lblCont1Star = new JLabel("");
-        lblCont1Star.setBounds(535, 18, 60, 25);
-        contentPane.add(lblCont1Star);
-
-        JLabel lblCont2Stars = new JLabel("");
-        lblCont2Stars.setBounds(535, 51, 60, 25);
-        contentPane.add(lblCont2Stars);
-
-        JLabel lblCont3Stars = new JLabel("");
-        lblCont3Stars.setBounds(535, 87, 60, 25);
-        contentPane.add(lblCont3Stars);
-
-        JLabel lblCont4Stars = new JLabel("");
-        lblCont4Stars.setBounds(535, 123, 60, 25);
-        contentPane.add(lblCont4Stars);
-
-        JLabel lblCont5Stars = new JLabel("");
-        lblCont5Stars.setBounds(535, 159, 60, 25);
-        contentPane.add(lblCont5Stars);
-
-        table = new JTable();
-        table.setBounds(10, 297, 594, 254);
-        contentPane.add(table);
-
-        JLabel lblRecensione = new JLabel("Recensione Completa:");
-        lblRecensione.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblRecensione.setBounds(10, 562, 150, 25);
-        contentPane.add(lblRecensione);
-
-        JLabel lblSelectedReview = new JLabel("");
-        lblSelectedReview.setBounds(10, 588, 594, 73);
-        contentPane.add(lblSelectedReview);
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Customer Name", "Stars", "Reviews"}
+            },
+            new String [] {
+                "Cliente", "Stelle", "Recensione"
+            }
         ) {
-            boolean[] canEdit = new boolean[]{
+            boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return canEdit [columnIndex];
             }
         });
-
-        /*
-		 * It will open the AddReviewGUI for the registered client.
-		 * 
-         */
-        if (logged) {
-            JButton btnNewButton = new JButton("Add Review");
-            btnNewButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-
-                    AddReviewGUI tmpAdd = new AddReviewGUI();
-                    tmpAdd.show();
-                    frame.setVisible(false);
-
-                }
-            });
-            btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-            btnNewButton.setBounds(365, 297, 200, 25);
-            contentPane.add(btnNewButton);
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        jLabelRecCompleta.setText("Recensione Completa");
+
+        jLabelGetName.setText("\"\"");
+
+        jLabelGetAddress.setText("\"\"");
+
+        jLabelGetCity.setText("\"\"");
+
+        jLabelGetProvince.setText("\"\"");
+
+        jLabelGetCap.setText("\"\"");
+
+        jLabelGetNumber.setText("\"\"");
+
+        jLabelGetWebsite.setText("\"\"");
+
+        jLabelGetType.setText("\"\"");
+
+        jLabelGet1Stars.setText("\"\"");
+
+        jLabelGet2Stars.setText("\"\"");
+
+        jLabelGet4Stars.setText("\"\"");
+
+        jLabelGet3Stars.setText("\"\"");
+
+        jLabelGet5Stars.setText("\"\"");
+
+        jLabelReceCompleta.setText("\"\"");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabelRecCompleta)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetType, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelCap, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetCap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetProvince, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelCity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetCity, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(51, 51, 51)
+                                    .addComponent(jLabel5StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel14StarsReviews, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3StarsReviews, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2StarReviews, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1StarReview, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelGet5Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelGet4Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelGet3Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelGet2Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabelGetNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabelWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabelGetWebsite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(25, 25, 25))))
+                .addContainerGap(160, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabelReceCompleta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabelName)
+                                        .addComponent(jLabelGetName))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1StarReview)
+                                        .addComponent(jLabelGet1Stars)))
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabelAddress)
+                                        .addComponent(jLabelGetAddress))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2StarReviews)
+                                        .addComponent(jLabelGet2Stars)))
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabelCity)
+                                        .addComponent(jLabelGetCity))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3StarsReviews)
+                                        .addComponent(jLabelGet3Stars)))
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabelProvince)
+                                    .addComponent(jLabelGetProvince)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel14StarsReviews)
+                                .addComponent(jLabelGet4Stars)))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCap)
+                            .addComponent(jLabelGetCap)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5StarsReviews)
+                        .addComponent(jLabelGet5Stars)))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNumber)
+                    .addComponent(jLabelGetNumber))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelWebsite)
+                    .addComponent(jLabelGetWebsite))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelType)
+                    .addComponent(jLabelGetType))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelRecCompleta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelReceCompleta)
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RecensioniGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RecensioniGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RecensioniGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RecensioniGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new RecensioniGUI(new Ristorante(), false).setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
-    public void populateJTable() {
-        try {
-            Parser p = new Parser();
-            RestaurantParser rp = new RestaurantParser();
+    /**
+     * popola la jtable di default
+     *
+     * @author luqmanasghar
+     * @throws java.lang.Exception
+     */
+    public void populateJTable() throws Exception {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Parser tmpParser = new Parser();
+        List<Cliente> listCli = tmpParser.readFromFile();
+        List<Recensione> listRece = tmpParser.readRecensioniFromFile();
 
-            List<Recensione> reviewList = p.readRecensioniFromFile();
-            List<Cliente> listCli = p.readFromFile();
-            List<Ristorante> restaurantList = rp.ReadFromFile();
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            Object[] rowData = new Object[3];
-            for (Recensione rec : reviewList) {
-                for (Cliente cliente : listCli) {
-                    if (cliente.getId() == rec.getClientID()) {
-                        rowData[0] = cliente.getNickName();
-                        break;
+        Object[] rowData = new Object[3];
+
+        for (Recensione rece : listRece) {
+            if (this.rist.getRestaurantID() == rece.getRestaurantID()) {
+                for (Cliente cli : listCli) {
+                    if (rece.getClientID() == cli.getId()) {
+                        rowData[0] = cli.getName();
                     }
                 }
-                rowData[1] = rec.getStars();
-                rowData[2] = rec.getRecensione();
-
-                model.addRow(rowData);
+                rowData[1] = rece.getStars();
+                rowData[2] = rece.getRecensione();
             }
-        } catch (Exception ex) {
-            Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+            model.addRow(rowData);
+
         }
 
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel14StarsReviews;
+    private javax.swing.JLabel jLabel1StarReview;
+    private javax.swing.JLabel jLabel2StarReviews;
+    private javax.swing.JLabel jLabel3StarsReviews;
+    private javax.swing.JLabel jLabel5StarsReviews;
+    private javax.swing.JLabel jLabelAddress;
+    private javax.swing.JLabel jLabelCap;
+    private javax.swing.JLabel jLabelCity;
+    private javax.swing.JLabel jLabelGet1Stars;
+    private javax.swing.JLabel jLabelGet2Stars;
+    private javax.swing.JLabel jLabelGet3Stars;
+    private javax.swing.JLabel jLabelGet4Stars;
+    private javax.swing.JLabel jLabelGet5Stars;
+    private javax.swing.JLabel jLabelGetAddress;
+    private javax.swing.JLabel jLabelGetCap;
+    private javax.swing.JLabel jLabelGetCity;
+    private javax.swing.JLabel jLabelGetName;
+    private javax.swing.JLabel jLabelGetNumber;
+    private javax.swing.JLabel jLabelGetProvince;
+    private javax.swing.JLabel jLabelGetType;
+    private javax.swing.JLabel jLabelGetWebsite;
+    private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelNumber;
+    private javax.swing.JLabel jLabelProvince;
+    private javax.swing.JLabel jLabelRecCompleta;
+    private javax.swing.JLabel jLabelReceCompleta;
+    private javax.swing.JLabel jLabelType;
+    private javax.swing.JLabel jLabelWebsite;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
 
 
 
-public class AddReviewGUI extends JFrame {
+public class AddReviewGUI_ extends JFrame {
 	
 	
 	// Variables declaration - do not modify
@@ -36,7 +36,7 @@ public class AddReviewGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddReviewGUI frame = new AddReviewGUI();
+					AddReviewGUI_ frame = new AddReviewGUI_();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class AddReviewGUI extends JFrame {
 	 * Create the frame.
 	 */
 
-	public AddReviewGUI() {
+	public AddReviewGUI_() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 200);
 		contentPane = new JPanel();

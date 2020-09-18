@@ -221,7 +221,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="81" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -242,8 +242,8 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="9" rowCount="0">
                     <Column editable="false" title="Id" type="java.lang.Object"/>
-                    <Column editable="true" title="Nome" type="java.lang.Object"/>
-                    <Column editable="true" title="Indirizzo" type="java.lang.Object"/>
+                    <Column editable="false" title="Nome" type="java.lang.Object"/>
+                    <Column editable="false" title="Indirizzo" type="java.lang.Object"/>
                     <Column editable="false" title="Citt&#xe0;" type="java.lang.Object"/>
                     <Column editable="false" title="Cap" type="java.lang.Object"/>
                     <Column editable="false" title="Prov" type="java.lang.Object"/>
