@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -64,48 +64,47 @@
                               <Component id="jLabelGetCity" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <EmptySpace min="76" pref="76" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                  <Component id="jLabel5StarsReviews" min="-2" pref="95" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel14StarsReviews" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
-                              <Component id="jLabel3StarsReviews" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel5StarsReviews" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jLabel2StarReviews" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
                                   <Component id="jLabel1StarReview" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jLabel3StarsReviews" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jLabel14StarsReviews" min="-2" pref="95" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelGet5Stars" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="jLabelGet4Stars" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="jLabelGet3Stars" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="jLabelGet2Stars" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="jLabelGet1Stars" min="-2" pref="115" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelGet5Stars" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="jLabelGet4Stars" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="jLabelGet3Stars" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="jLabelGet2Stars" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="jLabelGet1Stars" min="-2" pref="115" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace pref="160" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabelNumber" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabelGetNumber" min="-2" pref="225" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabelNumber" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jLabelGetNumber" min="-2" pref="225" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabelWebsite" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jLabelGetWebsite" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabelWebsite" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabelGetWebsite" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButtonAddRec" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="160" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -157,16 +156,21 @@
                                       <Component id="jLabelGet3Stars" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabelProvince" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelGetProvince" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabelProvince" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelGetProvince" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel14StarsReviews" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="jLabel14StarsReviews" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelGet4Stars" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabelGet4Stars" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -184,12 +188,20 @@
                   <Component id="jLabelNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelGetNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelWebsite" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelGetWebsite" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="jButtonAddRec" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabelWebsite" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelGetWebsite" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelType" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelGetType" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -200,7 +212,7 @@
               <Component id="jLabelRecCompleta" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabelReceCompleta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="70" max="32767" attributes="0"/>
+              <EmptySpace pref="76" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -256,27 +268,27 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1StarReview">
       <Properties>
-        <Property name="text" type="java.lang.String" value="1 Star Reviews"/>
+        <Property name="text" type="java.lang.String" value="1 Star "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2StarReviews">
       <Properties>
-        <Property name="text" type="java.lang.String" value="2 Stars Reviews"/>
+        <Property name="text" type="java.lang.String" value="2 Stars"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3StarsReviews">
       <Properties>
-        <Property name="text" type="java.lang.String" value="3 Stars Reviews"/>
+        <Property name="text" type="java.lang.String" value="3 Stars"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14StarsReviews">
       <Properties>
-        <Property name="text" type="java.lang.String" value="4 Stars Reviews"/>
+        <Property name="text" type="java.lang.String" value="4 Stars"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5StarsReviews">
       <Properties>
-        <Property name="text" type="java.lang.String" value="5 Stars Reviews"/>
+        <Property name="text" type="java.lang.String" value="5 Stars"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -395,6 +407,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&quot;&quot;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonAddRec">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Review"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAddRecMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

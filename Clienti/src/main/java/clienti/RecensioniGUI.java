@@ -23,6 +23,7 @@ import ristoratori.Ristorante;
 public class RecensioniGUI extends javax.swing.JFrame {
 
     protected Ristorante rist = null;
+    protected Cliente cli = null;
     protected Boolean logged = false;
 
     /**
@@ -43,7 +44,13 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(550);
         populateJTable();
 
+        if (logged) {
+            jButtonAddRec.setVisible(false);
+        }
+
         Parser tmpParser = new Parser();
+        RestaurantParser tmpRestp = new RestaurantParser();
+        List<Ristorante> tmpListRist = tmpRestp.ReadFromFile();
         List<Recensione> tmpListRece = tmpParser.readRecensioniFromFile();
 
         int contatore1S = 0;
@@ -53,60 +60,33 @@ public class RecensioniGUI extends javax.swing.JFrame {
         int contatore5S = 0;
 
         for (Recensione rece : tmpListRece) {
-            if (rece.getStars() == 1) {
-                contatore1S += 1;
-
-            } else if (rece.getStars() == 2) {
-                contatore2S += 1;
-
-            } else if (rece.getStars() == 3) {
-                contatore3S += 1;
-
-            } else if (rece.getStars() == 4) {
-                contatore4S += 1;
-
-            } else if (rece.getStars() == 5) {
-                contatore5S += 1;
-
+            if (this.rist.getRestaurantID() == rece.getRestaurantID()) {
+                if (rece.getStars() == 1) {
+                    contatore1S += 1;
+                } else if (rece.getStars() == 2) {
+                    contatore2S += 1;
+                } else if (rece.getStars() == 3) {
+                    contatore3S += 1;
+                } else if (rece.getStars() == 4) {
+                    contatore4S += 1;
+                } else if (rece.getStars() == 5) {
+                    contatore5S += 1;
+                }
             }
         }
+
         jLabelGet1Stars.setText(String.valueOf(contatore1S));
         jLabelGet2Stars.setText(String.valueOf(contatore2S));
         jLabelGet3Stars.setText(String.valueOf(contatore3S));
         jLabelGet4Stars.setText(String.valueOf(contatore4S));
         jLabelGet5Stars.setText(String.valueOf(contatore5S));
-        
-         /*   for (Recensione rece : tmpListRece) {
-            for (int contatore1S = 0; rece.getStars() == 1; contatore1S++) {
-                jLabelGet1Stars.setText(String.valueOf(contatore1S));
 
-            }
-            for (int contatore2S = 0; rece.getStars() == 2; contatore2S++) {
-                jLabelGet2Stars.setText(String.valueOf(contatore2S));
-
-            }
-            for (int contatore3S = 0; rece.getStars() == 3; contatore3S++) {
-                jLabelGet3Stars.setText(String.valueOf(contatore3S));
-
-            }
-            for (int contatore4S = 0; rece.getStars() == 4; contatore4S++) {
-                jLabelGet4Stars.setText(String.valueOf(contatore4S));
-
-            }
-            for (int contatore5S = 0; rece.getStars() == 5; contatore5S++) {
-                jLabelGet5Stars.setText(String.valueOf(contatore5S));
-
-            }
-
-        }
-         */
         ListSelectionModel model = jTable1.getSelectionModel();
         model.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!model.getValueIsAdjusting()) {
                     try {
-
                         Parser tmpParser = new Parser();
                         List<Cliente> listCli = tmpParser.readFromFile();
                         List<Recensione> listRece = tmpParser.readRecensioniFromFile();
@@ -179,6 +159,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jLabelGet3Stars = new javax.swing.JLabel();
         jLabelGet5Stars = new javax.swing.JLabel();
         jLabelReceCompleta = new javax.swing.JLabel();
+        jButtonAddRec = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -206,15 +187,15 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jLabelType.setText("Type");
         jLabelType.setToolTipText("");
 
-        jLabel1StarReview.setText("1 Star Reviews");
+        jLabel1StarReview.setText("1 Star ");
 
-        jLabel2StarReviews.setText("2 Stars Reviews");
+        jLabel2StarReviews.setText("2 Stars");
 
-        jLabel3StarsReviews.setText("3 Stars Reviews");
+        jLabel3StarsReviews.setText("3 Stars");
 
-        jLabel14StarsReviews.setText("4 Stars Reviews");
+        jLabel14StarsReviews.setText("4 Stars");
 
-        jLabel5StarsReviews.setText("5 Stars Reviews");
+        jLabel5StarsReviews.setText("5 Stars");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -269,6 +250,13 @@ public class RecensioniGUI extends javax.swing.JFrame {
 
         jLabelReceCompleta.setText("\"\"");
 
+        jButtonAddRec.setText("Add Review");
+        jButtonAddRec.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAddRecMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -306,37 +294,37 @@ public class RecensioniGUI extends javax.swing.JFrame {
                                 .addComponent(jLabelCity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelGetCity, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(25, 25, 25)
+                        .addGap(76, 76, 76)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(51, 51, 51)
-                                    .addComponent(jLabel5StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel14StarsReviews, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3StarsReviews, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
+                            .addComponent(jLabel5StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2StarReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1StarReview, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2StarReviews, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1StarReview, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelGet5Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelGet4Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelGet3Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelGet2Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabelGetNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabelWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabelGetWebsite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(25, 25, 25))))
-                .addContainerGap(160, Short.MAX_VALUE))
+                                    .addComponent(jLabelGet5Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelGet4Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelGet3Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelGet2Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(160, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabelWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelGetWebsite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(25, 25, 25)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAddRec, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(144, 144, 144))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -375,13 +363,16 @@ public class RecensioniGUI extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3StarsReviews)
                                         .addComponent(jLabelGet3Stars)))
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabelProvince)
-                                    .addComponent(jLabelGetProvince)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel14StarsReviews)
-                                .addComponent(jLabelGet4Stars)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabelProvince)
+                                            .addComponent(jLabelGetProvince)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel14StarsReviews))))
+                            .addComponent(jLabelGet4Stars))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCap)
@@ -393,11 +384,16 @@ public class RecensioniGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumber)
                     .addComponent(jLabelGetNumber))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelWebsite)
-                    .addComponent(jLabelGetWebsite))
-                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jButtonAddRec))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelWebsite)
+                            .addComponent(jLabelGetWebsite))))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelType)
                     .addComponent(jLabelGetType))
@@ -407,11 +403,24 @@ public class RecensioniGUI extends javax.swing.JFrame {
                 .addComponent(jLabelRecCompleta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelReceCompleta)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAddRecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddRecMouseClicked
+        // TODO add your handling code here:
+        AddRecensioniGUI tmp = null;
+        try {
+            tmp = new AddRecensioniGUI(cli, rist);
+
+        }catch(Exception ex){  
+        }
+
+        tmp.setLocationRelativeTo(null);
+        tmp.setVisible(true);
+    }//GEN-LAST:event_jButtonAddRecMouseClicked
 
     /**
      * @param args the command line arguments
@@ -422,6 +431,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -442,6 +452,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new RecensioniGUI(new Ristorante(), false).setVisible(true);
@@ -456,6 +467,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
      * popola la jtable di default
      *
      * @author luqmanasghar
+     * @author Zuffellato Cristian
      * @throws java.lang.Exception
      */
     public void populateJTable() throws Exception {
@@ -483,6 +495,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAddRec;
     private javax.swing.JLabel jLabel14StarsReviews;
     private javax.swing.JLabel jLabel1StarReview;
     private javax.swing.JLabel jLabel2StarReviews;

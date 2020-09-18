@@ -5,19 +5,31 @@
  */
 package clienti;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ristoratori.Ristorante;
+
 /**
  *
  * @author crist
  */
 public class AddRecensioniGUI extends javax.swing.JFrame {
 
+    protected Cliente tmpCli;
+    protected Ristorante tmpRist;
+    protected Cliente cli;
+    protected Ristorante rist;
+
     /**
      * Creates new form AddRecensioniGUI
      */
-    public AddRecensioniGUI() {
+    public AddRecensioniGUI(Cliente cli, Ristorante rist) {
+        this.cli = tmpCli;
+        this.rist = tmpRist;
+
         initComponents();
-        
-        
     }
 
     /**
@@ -35,7 +47,7 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         jTextFieldReview = new javax.swing.JTextField();
         jButtonAddReview = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabelStarReview.setText("Star Review");
 
@@ -44,9 +56,9 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         jLabelReview.setText("Review");
 
         jButtonAddReview.setText("Add Review");
-        jButtonAddReview.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddReviewActionPerformed(evt);
+        jButtonAddReview.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAddReviewMouseClicked(evt);
             }
         });
 
@@ -88,18 +100,32 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonAddReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddReviewActionPerformed
+    private void jButtonAddReviewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddReviewMouseClicked
         // TODO add your handling code here:
-        String empty = "";
-        
-        if(!jComboBox1.equals("Select an option:") && !jTextFieldReview.equals(empty)) {
-            
-    }//GEN-LAST:event_jButtonAddReviewActionPerformed
+        String selectedStar;
+        if (!jComboBox1.equals("Select an option:") && !jTextFieldReview.equals("")) {
+            try {
+                selectedStar = (String) jComboBox1.getSelectedItem();
+                Recensione tmpRec = new Recensione(tmpCli.getId(), tmpRist.getRestaurantID(), Integer.parseInt(selectedStar), jTextFieldReview.getText());
+                Parser tmpPars = new Parser();
+                String pathRec = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Recensioni.dati";
+                File tmpRecensione = new File(pathRec);
+                if (!tmpRecensione.exists()) {
+                    tmpRecensione.createNewFile();
+                }
+                tmpPars.addRecensioni(tmpRecensione, tmpRec);    
+            } catch (IOException ex) {
+                Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonAddReviewMouseClicked
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]){
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -126,7 +152,7 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddRecensioniGUI().setVisible(true);
+                new AddRecensioniGUI(new Cliente(), new Ristorante()).setVisible(true);
             }
         });
     }

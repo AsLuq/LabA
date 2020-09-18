@@ -173,11 +173,11 @@ public class Parser {
         Writer writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(file, true));
-            writer.write("\n");
             writer.write(calcStringLength(Integer.toString(recensione.getClientID()), Recensione.LENGTH_CLIENTID));
             writer.write(calcStringLength(Integer.toString(recensione.getRestaurantID()), Recensione.LENGTH_RESTAURANTID));
             writer.write(calcStringLength(Integer.toString(recensione.getStars()), Recensione.LENGTH_STARS));
             writer.write(calcStringLength(recensione.getRecensione(), Recensione.LENGTH_RESTAURANTREVIEWS));
+            writer.write("\n");
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -223,7 +223,7 @@ public class LoginFrame extends javax.swing.JFrame {
         try {
             Parser parser = new Parser();
             Boolean userExits = false;
-            String nickName = jTextFieldNickName.getText();
+            String nickName = jTextFieldNickName.getText().trim();
             String password = jTextFieldPassword.getText();
             Cliente cliente = null;
 
