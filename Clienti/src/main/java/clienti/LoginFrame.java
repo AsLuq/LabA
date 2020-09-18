@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author luqmanasghar
+ * @author Luqman Asghar
  */
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -202,7 +202,7 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Closes Login frame and opens Register Frame
      *
-     * @param evt
+     * @param evt mouse click event
      */
     private void JBtnRegistratiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnRegistratiMouseClicked
 
@@ -218,7 +218,7 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Checks if the inserted nickName and password matches with any user data
      *
-     * @param evt
+     * @param evt mouse click event
      */
     private void JBtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnLoginMouseClicked
         try {
@@ -252,7 +252,11 @@ public class LoginFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_JBtnLoginMouseClicked
-
+    
+    /**
+     *  Login as guests
+     * @param evt mouse click event
+     */
     private void jButtonOspiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonOspiteMouseClicked
         try {
             ListRistoratori listRist = new ListRistoratori();

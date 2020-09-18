@@ -5,7 +5,7 @@ package clienti;
  * @author luqmanasghar
  */
 public class Cliente {
-    
+
     // <editor-fold desc="Attributes"> 
     private String name;
     private String surname;
@@ -15,7 +15,6 @@ public class Cliente {
     private String nickName;
     private String password;
     private int id;
-
 
     static final int LENGTH_NAME = 30;
     static final int LENGTH_SURNAME = 30;
@@ -38,13 +37,14 @@ public class Cliente {
         this.id = id;
     }
 
-    public Cliente() {}
-    
-    // <editor-fold desc="Getters & Setters"> 
+    public Cliente() {
+    }
 
-    public int getId(){
+    // <editor-fold desc="Getters & Setters"> 
+    public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
@@ -100,43 +100,10 @@ public class Cliente {
     public void setPassword(String password) {
         this.password = password;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
-    
+
     //</editor-fold>
-    
-    /*
-    
-        - name          0   -   29
-        - surname       30  -   59
-        - comune        60  -   99
-        - provincia     100 -   102
-        - mail          103 -   134
-        - nickName      135 -   145
-        - password      145 -   160
-    
-    */
-    
-    // <editor-fold desc="Methods"> 
-    
-    public void printCliente(){
-        System.out.println(name + " " + surname + " " + city + " " + province + " " + nickName + " " + password);
-    }
-    
-    // ricerca per comune
-    
-    // ricerca per tipologia
-    
-    // ricerca per nome
-    
-    // ricerca per comune e tipologia
-    
-    // seleziona ristorante (lettura dal file)
-    
-    // readInfo ristorazione
-    
-    
-    
-    // </editor-fold> 
 }

@@ -19,7 +19,8 @@ import ristoratori.Ristorante;
 
 /**
  *
- * @author crist
+ * @author Zuffellato Cristian
+ * @author Luqman Asghar
  */
 public class RecensioniGUI extends javax.swing.JFrame {
 
@@ -28,7 +29,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
     protected Boolean logged = false;
 
     /**
-     * Creates new form RecensioniGUIm for GuestUsers
+     * Creates new form RecensioniGUI for Guests
      *
      * @param tmpRec restaurant clicked from ListRistoratori
      * @param logged client logged
@@ -54,7 +55,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form RecensioniGUI For Specific Client
+     * Creates new form RecensioniGUI For logged client
      *
      * @param tmpRec restaurant clicked from ListRistoratori
      * @param logged client logged
@@ -368,6 +369,10 @@ public class RecensioniGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * opens AddReviewGUI
+     * @param evt mouse click event
+     */
     private void jButtonAddRecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddRecMouseClicked
         // TODO add your handling code here:
         AddRecensioniGUI tmp = null;
@@ -495,9 +500,9 @@ public class RecensioniGUI extends javax.swing.JFrame {
     }
 
     /**
-     * popola la jtable di default
+     * populate jTable with default values
      *
-     * @author luqmanasghar
+     * @author Luqman Asghar
      * @author Zuffellato Cristian
      * @throws java.lang.Exception
      */

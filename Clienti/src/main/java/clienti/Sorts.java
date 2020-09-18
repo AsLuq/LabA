@@ -24,15 +24,15 @@ public class Sorts {
     public Sorts()
     {
     }
-    
+    //<editor-fold desc="Methods">
     /**
      * Filters the Restaurant list by City name and then
      * returns an ArrayList of Strings (restaurant names)
      * sorted in alphabetical order
      * 
-     * @param l
-     * @param city
-     * @return
+     * @param l restaurant list
+     * @param city city name
+     * @return sorted list
      */
     public static ArrayList<Ristorante> findByCity(List<Ristorante> l, String city)
     {
@@ -69,9 +69,9 @@ public class Sorts {
      * returns an ArrayList of Strings (restaurant names)
      * sorted in alphabetical order
      * 
-     * @param l
-     * @param type
-     * @return
+     * @param l restaurant list
+     * @param type restaurant type
+     * @return sorted list
      */
     public static ArrayList<Ristorante> findByType(List<Ristorante> l, String type) {
         /*
@@ -103,9 +103,9 @@ public class Sorts {
      * returns an ArrayList of Strings (restaurant names)
      * sorted in alphabetical order
      * 
-     * @param l
-     * @param name
-     * @return
+     * @param l restaurant list
+     * @param name restaurant name
+     * @return sorted list
      */
     public static ArrayList<Ristorante> findByName(List<Ristorante> l, String name)
     {
@@ -138,10 +138,10 @@ public class Sorts {
      * returns an ArrayList of Strings (restaurant names)
      * sorted in alphabetical order
      * 
-     * @param l
-     * @param city
-     * @param type
-     * @return
+     * @param l restaurant list
+     * @param city  city name
+     * @param type  restaurant type
+     * @return sorted list
      */
     public static ArrayList<Ristorante> findByCityAndType(List<Ristorante> l, String city, String type)
     {
@@ -169,4 +169,5 @@ public class Sorts {
         });
         return filteredList;
     }
+    //</editor-fold>
 }

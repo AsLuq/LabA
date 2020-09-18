@@ -6,7 +6,7 @@ import javax.swing.text.PlainDocument;
 
 /**
  *
- * @author luqmanasghar
+ * @author Luqman Asghar
  */
 public class JTextFieldLimit extends PlainDocument {
     private int limit;
@@ -15,6 +15,9 @@ public class JTextFieldLimit extends PlainDocument {
         this.limit = lim;
     }
     
+    /**
+     * Checks if the String  has reached its max limit, and blocks users to add any other character
+     */
     public void insertString(int offset, String str, AttributeSet set) throws BadLocationException{
      if(str == null)   
          return;

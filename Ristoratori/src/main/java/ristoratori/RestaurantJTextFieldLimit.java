@@ -6,7 +6,8 @@ import javax.swing.text.AttributeSet;
 
 /**
  *
- * @author crist
+ * @author Asghar Luqman
+ * @author Zuffellato Cristian
  */
 
 public class RestaurantJTextFieldLimit extends PlainDocument{
@@ -17,6 +18,9 @@ public class RestaurantJTextFieldLimit extends PlainDocument{
     }
     
     @Override
+    /**
+     * Checks if the String  has reached its max limit, and blocks users to add any other character
+     */
     public void insertString(int offset, String str, AttributeSet set) throws BadLocationException{
         if(str == null)
             return;

@@ -20,15 +20,16 @@ import ristoratori.Ristorante;
 
 /**
  *
- * @author luqmanasghar
+ * @author Luqman Asghar
  */
+
 public class ListRistoratori extends javax.swing.JFrame {
 
     private Cliente cli;
     private List<Ristorante> listCli;
 
     /**
-     * Creates new form ListClients
+     * Creates new form ListClients for guests
      *
      * @throws java.lang.Exception
      */
@@ -69,7 +70,12 @@ public class ListRistoratori extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    /**
+     * Creates new form ListClients for logged client
+     * @param cli logged client
+     * @throws Exception 
+     */
     public ListRistoratori(Cliente cli) throws Exception {
         this.cli = cli;
         initComponents();
@@ -108,7 +114,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             }
         });
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -344,7 +350,11 @@ public class ListRistoratori extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * applies the sorting filters
+     * @param evt mmouse clicked event
+     */
     private void jButtonSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSearchMouseClicked
         try {
             RestaurantParser parser = new RestaurantParser();
@@ -378,7 +388,7 @@ public class ListRistoratori extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchMouseClicked
 
     /**
-     * popola la jtable di default
+     * populate jTable
      *
      * @author luqmanasghar
      * @throws java.lang.Exception
@@ -405,7 +415,7 @@ public class ListRistoratori extends javax.swing.JFrame {
     /**
      * refresh jtable
      *
-     * @author andreabaz
+     * @author Basilico Andrea
      * @throws java.lang.Exception
      */
     public void refreshJTable() throws Exception {
@@ -430,10 +440,10 @@ public class ListRistoratori extends javax.swing.JFrame {
     }
 
     /**
-     * Svuota il contenuto dei textField
+     * Clear sorting filters
      *
-     * @param evt
-     * @author luqmanasghar
+     * @param evt mouse click event
+     * @author Luqman Asghar
      */
     private void jButtonClearFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonClearFilterMouseClicked
         jTextFieldNome.setText("");
@@ -450,6 +460,10 @@ public class ListRistoratori extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonClearFilterMouseClicked
 
+    /**
+     * returns to loginFrame
+     * @param evt mouse click event
+     */
     private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
         try {
             LoginFrame loginFrame = new LoginFrame();

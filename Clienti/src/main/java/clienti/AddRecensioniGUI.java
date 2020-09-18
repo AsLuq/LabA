@@ -107,13 +107,16 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
                 selectedStar = (String) jComboBox1.getSelectedItem();
                 Recensione tmpRec = new Recensione(cli.getId(), rist.getRestaurantID(), Integer.parseInt(selectedStar), jTextFieldReview.getText());
                 Parser tmpPars = new Parser();
-                tmpPars.addRecensione(tmpRec);    
+                tmpPars.addRecensione(tmpRec);
+                jComboBox1.setSelectedIndex(0);
+                jTextFieldReview.setText("");
             } catch (IOException ex) {
                 Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }//GEN-LAST:event_jButtonAddReviewMouseClicked
 
     /**

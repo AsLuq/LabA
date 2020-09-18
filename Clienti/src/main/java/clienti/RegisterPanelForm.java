@@ -182,7 +182,7 @@ public class RegisterPanelForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Closes REgister frame and open login Frame
+     * Closes Register frame and open login Frame
      *
      * @param evt
      */
@@ -195,9 +195,9 @@ public class RegisterPanelForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnCancelMouseClicked
 
     /**
-     * Add the new client in the file that contains clients data
+     * Add the new client in the file utenti.dati
      *
-     * @param evt
+     * @param evt mouse click event
      */
     private void jBtnSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSignUpMouseClicked
         Parser parser = new Parser();

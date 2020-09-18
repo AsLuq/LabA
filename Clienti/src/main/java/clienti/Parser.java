@@ -29,7 +29,7 @@ public class Parser {
 
     // <editor-fold desc="methods">
     /**
-     * Read the specified clients files from the given path
+     * Read the clients files from the given path
      *
      * @author luqmanasghar
      * @return list of clients
@@ -88,10 +88,10 @@ public class Parser {
     }
 
     /**
-     * Aggiorno il file dei cliente con i dati del nuovo cliente
+     * Updates the utenti.dati file with new Client
      *
-     * @author luqmanasghar
-     * @param cliente
+     * @author luqman asghar
+     * @param cliente client to add
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -154,8 +154,9 @@ public class Parser {
                 lastCliId = listCli.get(listCli.size() - 1).getId();
             }
             writer = new BufferedWriter(new FileWriter(file, true));
-            if(!newFile)
+            if (!newFile) {
                 writer.write("\n");
+            }
             writer.write(calcStringLength(cliente.getName(), Cliente.LENGTH_NAME));
             writer.write(calcStringLength(cliente.getSurname(), Cliente.LENGTH_SURNAME));
             writer.write(calcStringLength(cliente.getCity(), Cliente.LENGTH_CITY));
@@ -164,7 +165,7 @@ public class Parser {
             writer.write(calcStringLength(cliente.getNickName(), Cliente.LENGTH_NICKNAME));
             writer.write(calcStringLength(cliente.getPassword(), Cliente.LENGTH_PASSWORD));
             writer.write(calcStringLength(Integer.toString(lastCliId + 1), Cliente.LENGTH_ID));
-            JOptionPane.showMessageDialog (null, "Cliente aggiunto correttamente!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cliente aggiunto correttamente!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -175,6 +176,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Updates the recensioni.dati file with new review
+     *
+     * @param recensione recensione to add
+     * @throws IOException
+     * @throws Exception
+     */
     public void addRecensione(Recensione recensione) throws IOException, Exception {
         Writer writer = null;
         try {
@@ -184,13 +192,14 @@ public class Parser {
                 newFile = true;
             }
             writer = new BufferedWriter(new FileWriter(file, true));
-            if(!newFile)
+            if (!newFile) {
                 writer.write("\n");
+            }
             writer.write(calcStringLength(Integer.toString(recensione.getClientID()), Recensione.LENGTH_CLIENTID));
             writer.write(calcStringLength(Integer.toString(recensione.getRestaurantID()), Recensione.LENGTH_RESTAURANTID));
             writer.write(calcStringLength(Integer.toString(recensione.getStars()), Recensione.LENGTH_STARS));
             writer.write(calcStringLength(recensione.getRecensione(), Recensione.LENGTH_RESTAURANTREVIEWS));
-            JOptionPane.showMessageDialog (null, "Recensione aggiunta!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Recensione aggiunta!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -201,6 +210,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Read the review files from the given path
+     * @return @throws Exception
+     */
     public List<Recensione> readRecensioniFromFile() throws Exception {
         File file = new File(pathRecensioni);
         if (!file.exists()) {

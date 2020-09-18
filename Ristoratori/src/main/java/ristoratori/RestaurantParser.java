@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author crist
+ * @author Zuffellato Cristian
  */
 public class RestaurantParser {
 
@@ -25,7 +25,15 @@ public class RestaurantParser {
     public RestaurantParser() {
     }
 
-    //<editor-fold desc = "Methods";
+    //<editor-fold desc="Methods">;
+    /**
+     * Checks if the given word length is equals to given length,if it isn't it
+     * will add the remeaning character with space
+     *
+     * @param word word to set to a specific length
+     * @param lengthToCheck length to set
+     * @return the word with the desidered length
+     */
     public String calcStringLength(String word, int lengthToCheck) {
         String tmpString = word;
         try {
@@ -35,10 +43,16 @@ public class RestaurantParser {
         } catch (Exception ex) {
             Logger.getLogger(RestaurantParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return tmpString;
     }
 
+    /**
+     * Reads the eatAdvisor.dati file
+     *
+     * @return List of Ristorants
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public List<Ristorante> ReadFromFile() throws FileNotFoundException, IOException {
         File file = new File(path);
         if (!file.exists()) {
@@ -70,6 +84,11 @@ public class RestaurantParser {
         return tmpRestaurantList;
     }
 
+    /**
+     * Updates the eatAdvisor.dati file with new Restaurants
+     * @param restaurant restaurant to add
+     * @throws IOException
+     */
     public void WriteToFile(Ristorante restaurant) throws IOException {
         List<Ristorante> restaurantList = ReadFromFile();
         if (restaurantList.size() > 0) {
@@ -101,6 +120,8 @@ public class RestaurantParser {
         restaurantWriter.write(calcStringLength(Integer.toString(lastListID + 1), Ristorante.LENGTH_RESTAURANT_ID));
 
         restaurantWriter.close();
-        JOptionPane.showMessageDialog (null, "Ristorante aggiunto correttamente!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Ristorante aggiunto correttamente!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
     }
+    //</editor-fold>
 }

@@ -2,7 +2,7 @@ package clienti;
 
 public class Recensione {
 
-    // <editor-fold desc = "Attributes">
+    // <editor-fold desc="Attributes">
     private int clientID;
     private int restaurantID;
     private int stars;
@@ -12,17 +12,10 @@ public class Recensione {
     static final int LENGTH_RESTAURANTID = 3;
     static final int LENGTH_CLIENTID = 3;
     static final int LENGTH_STARS = 1;
+    //</editor-fold>
 
     public Recensione() {
 
-    }
-
-    public Recensione(int stars, String recensione) {
-        super();
-        this.clientID = clientID;
-        this.restaurantID = restaurantID;
-        this.stars = stars;
-        this.recensione = recensione;
     }
 
     public Recensione(int clientID, int restaurantID, int stars, String recensione) {
@@ -33,6 +26,7 @@ public class Recensione {
         this.recensione = recensione;
     }
 
+    //<editor-fold desc="Getters&Setters">
     public int getClientID() {
         return clientID;
     }
@@ -64,5 +58,5 @@ public class Recensione {
     public void setRecensione(String recensione) {
         this.recensione = recensione;
     }
-
+    //</editor-fold>
 }
