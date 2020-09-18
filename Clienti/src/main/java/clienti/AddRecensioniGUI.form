@@ -92,6 +92,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldReview">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField(); &#xa;jTextFieldReview.setDocument(new JTextFieldLimit(256))"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAddReview">
       <Properties>

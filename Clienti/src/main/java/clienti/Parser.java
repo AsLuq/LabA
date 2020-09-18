@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Parser {
 
     public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Utenti.dati";
     public static String pathRecensioni = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Recensioni.dati";
+    private Boolean newFile = false;
 
     // <editor-fold desc="methods">
     /**
@@ -97,9 +99,11 @@ public class Parser {
         try {
             File file = new File(path);
             if (file.exists()) {
+                newFile = false;
                 writeToFile(file, cliente);
             } else {
                 file.createNewFile();
+                newFile = true;
                 writeToFile(file, cliente);
             }
 
@@ -150,7 +154,8 @@ public class Parser {
                 lastCliId = listCli.get(listCli.size() - 1).getId();
             }
             writer = new BufferedWriter(new FileWriter(file, true));
-            writer.write("\n");
+            if(!newFile)
+                writer.write("\n");
             writer.write(calcStringLength(cliente.getName(), Cliente.LENGTH_NAME));
             writer.write(calcStringLength(cliente.getSurname(), Cliente.LENGTH_SURNAME));
             writer.write(calcStringLength(cliente.getCity(), Cliente.LENGTH_CITY));
@@ -159,6 +164,7 @@ public class Parser {
             writer.write(calcStringLength(cliente.getNickName(), Cliente.LENGTH_NICKNAME));
             writer.write(calcStringLength(cliente.getPassword(), Cliente.LENGTH_PASSWORD));
             writer.write(calcStringLength(Integer.toString(lastCliId + 1), Cliente.LENGTH_ID));
+            JOptionPane.showMessageDialog (null, "Cliente aggiunto correttamente!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -169,15 +175,22 @@ public class Parser {
         }
     }
 
-    public void addRecensioni(File file, Recensione recensione) throws IOException, Exception {
+    public void addRecensione(Recensione recensione) throws IOException, Exception {
         Writer writer = null;
         try {
+            File file = new File(pathRecensioni);
+            if (!file.exists()) {
+                file.createNewFile();
+                newFile = true;
+            }
             writer = new BufferedWriter(new FileWriter(file, true));
+            if(!newFile)
+                writer.write("\n");
             writer.write(calcStringLength(Integer.toString(recensione.getClientID()), Recensione.LENGTH_CLIENTID));
             writer.write(calcStringLength(Integer.toString(recensione.getRestaurantID()), Recensione.LENGTH_RESTAURANTID));
             writer.write(calcStringLength(Integer.toString(recensione.getStars()), Recensione.LENGTH_STARS));
             writer.write(calcStringLength(recensione.getRecensione(), Recensione.LENGTH_RESTAURANTREVIEWS));
-            writer.write("\n");
+            JOptionPane.showMessageDialog (null, "Recensione aggiunta!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -6,6 +6,7 @@
 package clienti;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
     protected Boolean logged = false;
 
     /**
-     * Creates new form RecensioniGUI
+     * Creates new form RecensioniGUIm for GuestUsers
      *
      * @param tmpRec restaurant clicked from ListRistoratori
      * @param logged client logged
@@ -43,79 +44,42 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(550);
         populateJTable();
+        CountStars();
+        setRestaurantInfo();
 
-        if (logged) {
+        if (!logged) {
             jButtonAddRec.setVisible(false);
         }
 
-        Parser tmpParser = new Parser();
-        RestaurantParser tmpRestp = new RestaurantParser();
-        List<Ristorante> tmpListRist = tmpRestp.ReadFromFile();
-        List<Recensione> tmpListRece = tmpParser.readRecensioniFromFile();
-
-        int contatore1S = 0;
-        int contatore2S = 0;
-        int contatore3S = 0;
-        int contatore4S = 0;
-        int contatore5S = 0;
-
-        for (Recensione rece : tmpListRece) {
-            if (this.rist.getRestaurantID() == rece.getRestaurantID()) {
-                if (rece.getStars() == 1) {
-                    contatore1S += 1;
-                } else if (rece.getStars() == 2) {
-                    contatore2S += 1;
-                } else if (rece.getStars() == 3) {
-                    contatore3S += 1;
-                } else if (rece.getStars() == 4) {
-                    contatore4S += 1;
-                } else if (rece.getStars() == 5) {
-                    contatore5S += 1;
-                }
-            }
-        }
-
-        jLabelGet1Stars.setText(String.valueOf(contatore1S));
-        jLabelGet2Stars.setText(String.valueOf(contatore2S));
-        jLabelGet3Stars.setText(String.valueOf(contatore3S));
-        jLabelGet4Stars.setText(String.valueOf(contatore4S));
-        jLabelGet5Stars.setText(String.valueOf(contatore5S));
-
-        ListSelectionModel model = jTable1.getSelectionModel();
-        model.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!model.getValueIsAdjusting()) {
-                    try {
-                        Parser tmpParser = new Parser();
-                        List<Cliente> listCli = tmpParser.readFromFile();
-                        List<Recensione> listRece = tmpParser.readRecensioniFromFile();
-                        for (Recensione rece : listRece) {
-                            for (Cliente cli : listCli) {
-                                if (rece.getClientID() == cli.getId()) {
-                                    jLabelReceCompleta.setText(rece.getRecensione());
-                                }
-                            }
-                        }
-                    } catch (Exception ex) {
-                        Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                }
-            }
-        });
-
-        jLabelGetName.setText(rist.getRestaurantName());
-        jLabelGetAddress.setText(rist.getAddress());
-        jLabelGetCity.setText(rist.getCity());
-        jLabelGetProvince.setText(rist.getProvince());
-        jLabelGetCap.setText(rist.getCap());
-        jLabelGetNumber.setText(rist.getTelephoneNumber());
-        jLabelGetWebsite.setText(rist.getWebSite());
-        jLabelGetType.setText(rist.getRestaurantType());
-
     }
 
+    /**
+     * Creates new form RecensioniGUI For Specific Client
+     *
+     * @param tmpRec restaurant clicked from ListRistoratori
+     * @param logged client logged
+     * @throws java.lang.Exception
+     */
+    public RecensioniGUI(Ristorante tmpRec, Cliente cli, Boolean logged) throws Exception {
+        this.rist = tmpRec;
+        this.cli = cli;
+        this.logged = logged;
+        initComponents();
+        jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
+        jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(550);
+        populateJTable();
+        CountStars();
+        setRestaurantInfo();
+
+        if (!logged) {
+            jButtonAddRec.setVisible(false);
+        }
+
+    }
+    
     private RecensioniGUI() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -158,8 +122,9 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jLabelGet4Stars = new javax.swing.JLabel();
         jLabelGet3Stars = new javax.swing.JLabel();
         jLabelGet5Stars = new javax.swing.JLabel();
-        jLabelReceCompleta = new javax.swing.JLabel();
         jButtonAddRec = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -248,8 +213,6 @@ public class RecensioniGUI extends javax.swing.JFrame {
 
         jLabelGet5Stars.setText("\"\"");
 
-        jLabelReceCompleta.setText("\"\"");
-
         jButtonAddRec.setText("Add Review");
         jButtonAddRec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -257,79 +220,84 @@ public class RecensioniGUI extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(4);
+        jTextArea1.setToolTipText("");
+        jTextArea1.setDragEnabled(false);
+        jTextArea1.setEnabled(false);
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabelRecCompleta)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelRecCompleta)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGetAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(509, 509, 509)
+                                .addComponent(jButtonAddRec, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelGetType, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGetName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelCap, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGetCap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabelProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGetProvince, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabelCity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGetCity, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(76, 76, 76)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2StarReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1StarReview, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelGetAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelGetName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelCap, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelGetCap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabelProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelGetProvince, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabelCity, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelGetCity, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(76, 76, 76)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelGet5Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelGet4Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelGet3Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelGet2Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(160, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabelGet5Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2StarReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel1StarReview, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel14StarsReviews, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelGet4Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabelGet3Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabelGet2Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(160, 160, 160))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelGetNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabelGetWebsite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(25, 25, 25)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonAddRec, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(144, 144, 144))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jLabelReceCompleta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabelGetWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -339,71 +307,62 @@ public class RecensioniGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabelName)
-                                        .addComponent(jLabelGetName))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1StarReview)
-                                        .addComponent(jLabelGet1Stars)))
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabelAddress)
-                                        .addComponent(jLabelGetAddress))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2StarReviews)
-                                        .addComponent(jLabelGet2Stars)))
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabelCity)
-                                        .addComponent(jLabelGetCity))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3StarsReviews)
-                                        .addComponent(jLabelGet3Stars)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabelProvince)
-                                            .addComponent(jLabelGetProvince)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel14StarsReviews))))
-                            .addComponent(jLabelGet4Stars))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelName)
+                                .addComponent(jLabelGetName))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1StarReview)
+                                .addComponent(jLabelGet1Stars)))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelAddress)
+                                .addComponent(jLabelGetAddress))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2StarReviews)
+                                .addComponent(jLabelGet2Stars)))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelCity)
+                                .addComponent(jLabelGetCity))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3StarsReviews)
+                                .addComponent(jLabelGet3Stars)))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCap)
-                            .addComponent(jLabelGetCap)))
+                            .addComponent(jLabelProvince)
+                            .addComponent(jLabelGetProvince)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5StarsReviews)
-                        .addComponent(jLabelGet5Stars)))
-                .addGap(22, 22, 22)
+                        .addComponent(jLabelGet4Stars)
+                        .addComponent(jLabel14StarsReviews)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNumber)
-                    .addComponent(jLabelGetNumber))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jButtonAddRec))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelWebsite)
-                            .addComponent(jLabelGetWebsite))))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabelCap)
+                    .addComponent(jLabelGetCap)
+                    .addComponent(jLabel5StarsReviews)
+                    .addComponent(jLabelGet5Stars))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelGetNumber)
+                    .addComponent(jLabelNumber))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelWebsite)
+                    .addComponent(jLabelGetWebsite))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelType)
                     .addComponent(jLabelGetType))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonAddRec)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelRecCompleta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelReceCompleta)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -422,6 +381,78 @@ public class RecensioniGUI extends javax.swing.JFrame {
         tmp.setVisible(true);
     }//GEN-LAST:event_jButtonAddRecMouseClicked
 
+    /**
+     * Count Stars for specific restaurant
+     */
+    public void CountStars() throws Exception{
+        try {
+            Parser tmpParser = new Parser();
+            RestaurantParser tmpRestp = new RestaurantParser();
+            List<Ristorante> tmpListRist = tmpRestp.ReadFromFile();
+            List<Recensione> tmpListRece = tmpParser.readRecensioniFromFile();
+            
+            int contatore1S = 0;
+            int contatore2S = 0;
+            int contatore3S = 0;
+            int contatore4S = 0;
+            int contatore5S = 0;
+            
+            for (Recensione rece : tmpListRece) {
+                if (this.rist.getRestaurantID() == rece.getRestaurantID()) {
+                    if (rece.getStars() == 1) {
+                        contatore1S += 1;
+                    } else if (rece.getStars() == 2) {
+                        contatore2S += 1;
+                    } else if (rece.getStars() == 3) {
+                        contatore3S += 1;
+                    } else if (rece.getStars() == 4) {
+                        contatore4S += 1;
+                    } else if (rece.getStars() == 5) {
+                        contatore5S += 1;
+                    }
+                }
+            }
+            
+            jLabelGet1Stars.setText(String.valueOf(contatore1S));
+            jLabelGet2Stars.setText(String.valueOf(contatore2S));
+            jLabelGet3Stars.setText(String.valueOf(contatore3S));
+            jLabelGet4Stars.setText(String.valueOf(contatore4S));
+            jLabelGet5Stars.setText(String.valueOf(contatore5S));
+        } catch (IOException ex) {
+            Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * populates restaurant info
+     */
+    public void setRestaurantInfo(){
+        ListSelectionModel model = jTable1.getSelectionModel();
+        jTextArea1.setText("");
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!model.getValueIsAdjusting()) {
+                    try {
+                        jTextArea1.setText((String)jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                    } catch (Exception ex) {
+                        Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+        });
+
+        jLabelGetName.setText(rist.getRestaurantName());
+        jLabelGetAddress.setText(rist.getAddress());
+        jLabelGetCity.setText(rist.getCity());
+        jLabelGetProvince.setText(rist.getProvince());
+        jLabelGetCap.setText(rist.getCap());
+        jLabelGetNumber.setText(rist.getTelephoneNumber());
+        jLabelGetWebsite.setText(rist.getWebSite());
+        jLabelGetType.setText(rist.getRestaurantType());
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -487,8 +518,9 @@ public class RecensioniGUI extends javax.swing.JFrame {
                 }
                 rowData[1] = rece.getStars();
                 rowData[2] = rece.getRecensione();
+                model.addRow(rowData);
             }
-            model.addRow(rowData);
+            
 
         }
 
@@ -521,10 +553,11 @@ public class RecensioniGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNumber;
     private javax.swing.JLabel jLabelProvince;
     private javax.swing.JLabel jLabelRecCompleta;
-    private javax.swing.JLabel jLabelReceCompleta;
     private javax.swing.JLabel jLabelType;
     private javax.swing.JLabel jLabelWebsite;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

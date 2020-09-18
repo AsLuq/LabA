@@ -17,17 +17,15 @@ import ristoratori.Ristorante;
  */
 public class AddRecensioniGUI extends javax.swing.JFrame {
 
-    protected Cliente tmpCli;
-    protected Ristorante tmpRist;
-    protected Cliente cli;
-    protected Ristorante rist;
+    private Cliente cli;
+    private Ristorante rist;
 
     /**
      * Creates new form AddRecensioniGUI
      */
     public AddRecensioniGUI(Cliente cli, Ristorante rist) {
-        this.cli = tmpCli;
-        this.rist = tmpRist;
+        this.cli = cli;
+        this.rist = rist;
 
         initComponents();
     }
@@ -45,6 +43,7 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabelReview = new javax.swing.JLabel();
         jTextFieldReview = new javax.swing.JTextField();
+        jTextFieldReview.setDocument(new JTextFieldLimit(256));
         jButtonAddReview = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -106,14 +105,9 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         if (!jComboBox1.equals("Select an option:") && !jTextFieldReview.equals("")) {
             try {
                 selectedStar = (String) jComboBox1.getSelectedItem();
-                Recensione tmpRec = new Recensione(tmpCli.getId(), tmpRist.getRestaurantID(), Integer.parseInt(selectedStar), jTextFieldReview.getText());
+                Recensione tmpRec = new Recensione(cli.getId(), rist.getRestaurantID(), Integer.parseInt(selectedStar), jTextFieldReview.getText());
                 Parser tmpPars = new Parser();
-                String pathRec = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Recensioni.dati";
-                File tmpRecensione = new File(pathRec);
-                if (!tmpRecensione.exists()) {
-                    tmpRecensione.createNewFile();
-                }
-                tmpPars.addRecensioni(tmpRecensione, tmpRec);    
+                tmpPars.addRecensione(tmpRec);    
             } catch (IOException ex) {
                 Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {

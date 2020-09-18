@@ -97,7 +97,7 @@ public class ListRistoratori extends javax.swing.JFrame {
 
                     RecensioniGUI tmp = null;
                     try {
-                        tmp = new RecensioniGUI(tmpRist, false);
+                        tmp = new RecensioniGUI(tmpRist, cli, true);
                     } catch (Exception ex) {
                         Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -121,6 +121,7 @@ public class ListRistoratori extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabelClientName = new javax.swing.JLabel();
         jLabelUenteLoggato = new javax.swing.JLabel();
+        javax.swing.JButton jButtonBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
@@ -129,7 +130,7 @@ public class ListRistoratori extends javax.swing.JFrame {
         jLabelTipologia = new javax.swing.JLabel();
         jTextFieldTipologia = new javax.swing.JTextField();
         jButtonSearch = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonClearFilter = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -142,6 +143,13 @@ public class ListRistoratori extends javax.swing.JFrame {
         jLabelUenteLoggato.setText("Utente Loggato: ");
         jLabelUenteLoggato.setToolTipText("");
 
+        jButtonBack.setText("Back");
+        jButtonBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonBackMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -151,7 +159,9 @@ public class ListRistoratori extends javax.swing.JFrame {
                 .addComponent(jLabelUenteLoggato, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelClientName, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonBack)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +169,10 @@ public class ListRistoratori extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelClientName)
                     .addComponent(jLabelUenteLoggato))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jButtonBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabelNome.setText("Nome");
@@ -175,10 +188,10 @@ public class ListRistoratori extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Clear Filter");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonClearFilter.setText("Clear Filter");
+        jButtonClearFilter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jButtonClearFilterMouseClicked(evt);
             }
         });
 
@@ -191,7 +204,7 @@ public class ListRistoratori extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 99, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonClearFilter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonSearch))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -229,7 +242,7 @@ public class ListRistoratori extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSearch)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonClearFilter))
                 .addContainerGap(151, Short.MAX_VALUE))
         );
 
@@ -270,7 +283,7 @@ public class ListRistoratori extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 83, Short.MAX_VALUE))
+                .addGap(0, 67, Short.MAX_VALUE))
         );
 
         jLabelFilter.setText("Filtra per");
@@ -422,7 +435,7 @@ public class ListRistoratori extends javax.swing.JFrame {
      * @param evt
      * @author luqmanasghar
      */
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void jButtonClearFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonClearFilterMouseClicked
         jTextFieldNome.setText("");
         jTextFieldComune.setText("");
         jTextFieldTipologia.setText("");
@@ -435,7 +448,19 @@ public class ListRistoratori extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButtonClearFilterMouseClicked
+
+    private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
+        try {
+            LoginFrame loginFrame = new LoginFrame();
+            loginFrame.setLocationRelativeTo(null);
+            loginFrame.setVisible(true);
+            
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonBackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -478,7 +503,7 @@ public class ListRistoratori extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonClearFilter;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox<String> jComboBoxFilter;
     private javax.swing.JLabel jLabelClientName;
