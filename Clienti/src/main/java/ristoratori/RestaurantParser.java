@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author crist
+ * @author Andrea Basilico
  */
 public class RestaurantParser {
 
