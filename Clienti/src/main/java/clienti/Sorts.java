@@ -14,7 +14,7 @@ import ristoratori.Ristorante;
 
 /**
  *
- * @author AndreaBaz
+ * @author Andrea Basilico
  */
 public class Sorts {
     
