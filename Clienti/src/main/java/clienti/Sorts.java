@@ -36,18 +36,6 @@ public class Sorts {
      */
     public static ArrayList<Ristorante> findByCity(List<Ristorante> l, String city)
     {
-        /*
-        ArrayList<String> listaNomiR = new ArrayList<>();
-        for (Ristorante r : l)
-        {
-            if (r.getCity().equals(city)) {
-                listaNomiR.add(r.getRestaurantName());
-            }
-        }
-        Collections.sort(listaNomiR);
-        return listaNomiR;
-        */
-        
         ArrayList<Ristorante> filteredList = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getCity().equals(city)) {
@@ -74,16 +62,6 @@ public class Sorts {
      * @return sorted list
      */
     public static ArrayList<Ristorante> findByType(List<Ristorante> l, String type) {
-        /*
-        ArrayList<String> listaNomiR = new ArrayList<>();
-        for (Ristorante r : l) {
-            if (r.getRestaurantType().equals(type)) {
-                listaNomiR.add(r.getRestaurantName());
-            }
-        }
-        Collections.sort(listaNomiR);
-        return listaNomiR;
-        */
         ArrayList<Ristorante> filteredList = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getRestaurantType().equals(type)) {
@@ -109,16 +87,6 @@ public class Sorts {
      */
     public static ArrayList<Ristorante> findByName(List<Ristorante> l, String name)
     {
-        //questo metodo si può implementare anche con le wildcard verificando almeno le prime 3 lettere
-        /* NOT WORKING
-        ArrayList<String> listaNomiR = new ArrayList<>();
-        for (Ristorante r : l) {
-            if (r.getRestaurantName().matches(name.substring(0, 2).concat("*"))) {
-                listaNomiR.add(r.getRestaurantName());
-            }
-        }*/
-        
-        //WORKS
         ArrayList<Ristorante> filteredList = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getRestaurantName().equals(name)) {
@@ -145,17 +113,6 @@ public class Sorts {
      */
     public static ArrayList<Ristorante> findByCityAndType(List<Ristorante> l, String city, String type)
     {
-        /*
-        ArrayList<String> listaNomiR = new ArrayList<>();
-        for (Ristorante r : l) {
-            if (r.getCity().equals(city) && r.getRestaurantType().equals(type)) {
-                listaNomiR.add(r.getRestaurantName());
-            }
-        }
-        Collections.sort(listaNomiR);
-        return listaNomiR;
-        */
-        
         ArrayList<Ristorante> filteredList = new ArrayList<>();
         for (Ristorante r : l) {
             if (r.getCity().equals(city) && r.getRestaurantType().equals(type)) {
