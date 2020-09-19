@@ -212,6 +212,12 @@ public class RegisterPanelForm extends javax.swing.JFrame {
             cliente.setNickName(jTextFieldNickName.getText());
             cliente.setPassword(jTextFieldPassword.getText());
             parser.UpdateFile(cliente);
+
+            LoginFrame loginFrame = new LoginFrame();
+            loginFrame.setLocationRelativeTo(null);
+            loginFrame.setVisible(true);
+            this.dispose();
+            
         } catch (IOException ex) {
             Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
