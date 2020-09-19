@@ -21,6 +21,7 @@ import ristoratori.Ristorante;
 /**
  *
  * @author Luqman Asghar
+ * @author Andrea Basilico
  */
 
 public class ListRistoratori extends javax.swing.JFrame {
@@ -415,7 +416,7 @@ public class ListRistoratori extends javax.swing.JFrame {
     /**
      * refresh jtable
      *
-     * @author Basilico Andrea
+     * @author Andrea Basilico
      * @throws java.lang.Exception
      */
     public void refreshJTable() throws Exception {
