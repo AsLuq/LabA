@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  *
- * @author crist
+ * @author Zuffellato Cristian
  */
 
 public class Ristoratori{

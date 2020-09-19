@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class SecondaryRestaurantGUI extends JFrame {
 // <editor-fold desc="Attributes">
 
-    private JPanel contentPane;
+    private final JPanel contentPane;
     private JTextField textFieldRestName;
     private JTextField textFieldAddress;
     private JTextField textFieldBuildNumb;

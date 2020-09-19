@@ -90,8 +90,8 @@ public class RestaurantLoginGUI extends JFrame {
                 if (correctUser.compareTo(enteredUser) == 0) {
                     if (correctPassword.compareTo(enteredPassword) == 0) {
                         SecondaryRestaurantGUI addRestaurant = new SecondaryRestaurantGUI();
-                        addRestaurant.show();
-                        frame.setVisible(false);
+                        addRestaurant.setVisible(true);
+                        frame.dispose();
                     }
 
                     lblLogin.setText("Login Failed !");

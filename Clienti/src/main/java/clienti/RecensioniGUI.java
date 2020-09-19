@@ -226,7 +226,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(4);
         jTextArea1.setToolTipText("");
-        jTextArea1.setDragEnabled(false);
+        jTextArea1.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         jTextArea1.setEnabled(false);
         jScrollPane2.setViewportView(jTextArea1);
 
@@ -288,8 +288,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
                                             .addComponent(jLabelGet4Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabelGet3Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabelGet2Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(160, 160, 160))
+                                            .addComponent(jLabelGet1Stars, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -298,7 +297,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
                                 .addComponent(jLabelWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelGetWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 111, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
