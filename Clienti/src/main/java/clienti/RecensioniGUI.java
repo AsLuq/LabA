@@ -43,7 +43,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(550);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(565);
         populateJTable();
         CountStars();
         setRestaurantInfo();
@@ -391,8 +391,6 @@ public class RecensioniGUI extends javax.swing.JFrame {
     public void CountStars() throws Exception{
         try {
             Parser tmpParser = new Parser();
-            RestaurantParser tmpRestp = new RestaurantParser();
-            List<Ristorante> tmpListRist = tmpRestp.ReadFromFile();
             List<Recensione> tmpListRece = tmpParser.readRecensioniFromFile();
             
             int contatore1S = 0;
@@ -442,7 +440,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
                     } catch (Exception ex) {
                         Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    jTable1.clearSelection();
                 }
             }
         });

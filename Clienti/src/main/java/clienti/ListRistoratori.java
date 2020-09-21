@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import ristoratori.RestaurantParser;
 import ristoratori.Ristorante;
@@ -23,7 +22,6 @@ import ristoratori.Ristorante;
  * @author Luqman Asghar
  * @author Andrea Basilico
  */
-
 public class ListRistoratori extends javax.swing.JFrame {
 
     private Cliente cli;
@@ -39,43 +37,14 @@ public class ListRistoratori extends javax.swing.JFrame {
         jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
         populateJTable();
         jLabelUenteLoggato.setText("Accesso Libero");
-
-        ListSelectionModel model = jTable1.getSelectionModel();
-        model.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!model.getValueIsAdjusting()) {
-
-                    Ristorante tmpRist = new Ristorante();
-
-                    tmpRist.setRestaurantID((int)jTable1.getValueAt(model.getMinSelectionIndex(), 0));
-                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
-                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
-                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
-                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
-                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
-                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
-                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
-                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
-
-                    RecensioniGUI tmp = null;
-                    try {
-                        tmp = new RecensioniGUI(tmpRist, false);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    tmp.setLocationRelativeTo(null);
-                    tmp.setVisible(true);
-
-                }
-            }
-        });
+        addListenerToRows(false, null);
     }
-    
+
     /**
      * Creates new form ListClients for logged client
+     *
      * @param cli logged client
-     * @throws Exception 
+     * @throws Exception
      */
     public ListRistoratori(Cliente cli) throws Exception {
         this.cli = cli;
@@ -83,39 +52,9 @@ public class ListRistoratori extends javax.swing.JFrame {
         jTable1.getTableHeader().setBackground(Color.LIGHT_GRAY);
         populateJTable();
         jLabelClientName.setText(cli.getName() + " " + cli.getSurname());
-
-        ListSelectionModel model = jTable1.getSelectionModel();
-        model.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!model.getValueIsAdjusting()) {
-
-                    Ristorante tmpRist = new Ristorante();
-
-                    tmpRist.setRestaurantID((int)jTable1.getValueAt(model.getMinSelectionIndex(), 0));
-                    tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
-                    tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
-                    tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
-                    tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
-                    tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
-                    tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
-                    tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
-                    tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
-
-                    RecensioniGUI tmp = null;
-                    try {
-                        tmp = new RecensioniGUI(tmpRist, cli, true);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    tmp.setLocationRelativeTo(null);
-                    tmp.setVisible(true);
-
-                }
-            }
-        });
+        addListenerToRows(true, cli);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -351,9 +290,10 @@ public class ListRistoratori extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * applies the sorting filters
+     *
      * @param evt mmouse clicked event
      */
     private void jButtonSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSearchMouseClicked
@@ -399,7 +339,7 @@ public class ListRistoratori extends javax.swing.JFrame {
         RestaurantParser parser = new RestaurantParser();
         listCli = parser.ReadFromFile();
         Object[] rowData = new Object[9];
-        for (Ristorante rist : listCli) {            
+        for (Ristorante rist : listCli) {
             rowData[0] = rist.getRestaurantID();
             rowData[1] = rist.getRestaurantName();
             rowData[2] = rist.getAddress() + " " + rist.getBuildingNumber();
@@ -411,19 +351,23 @@ public class ListRistoratori extends javax.swing.JFrame {
             rowData[8] = rist.getRestaurantType();
             model.addRow(rowData);
         }
+        jTable1.revalidate();
     }
 
     /**
-     * refresh jtable
+     * refresh jtable with the filters applied
      *
      * @author Andrea Basilico
      * @throws java.lang.Exception
      */
     public void refreshJTable() throws Exception {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.removeTableModelListener(jTable1);
+        //jTable1.getSelectionModel().removeListSelectionListener(new ListSelectionEvent());
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
+        jTable1.revalidate();
         Object[] rowData = new Object[9];
         for (Ristorante rist : listCli) {
             rowData[0] = rist.getRestaurantID();
@@ -441,7 +385,7 @@ public class ListRistoratori extends javax.swing.JFrame {
     }
 
     /**
-     * Clear sorting filters
+     * Clear sorting filters from fields
      *
      * @param evt mouse click event
      * @author Luqman Asghar
@@ -451,9 +395,11 @@ public class ListRistoratori extends javax.swing.JFrame {
         jTextFieldComune.setText("");
         jTextFieldTipologia.setText("");
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.removeTableModelListener(jTable1);
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
+        jTable1.revalidate();
         try {
             populateJTable();
         } catch (Exception ex) {
@@ -463,6 +409,7 @@ public class ListRistoratori extends javax.swing.JFrame {
 
     /**
      * returns to loginFrame
+     *
      * @param evt mouse click event
      */
     private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
@@ -470,12 +417,52 @@ public class ListRistoratori extends javax.swing.JFrame {
             LoginFrame loginFrame = new LoginFrame();
             loginFrame.setLocationRelativeTo(null);
             loginFrame.setVisible(true);
-            
+
             this.dispose();
         } catch (Exception ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonBackMouseClicked
+
+    /**
+     * Adds row selection listener to the JTable
+     * @param boolCli userLogged
+     * @param Cli UserData
+     * @author luqman asghar
+     */
+    private void addListenerToRows(Boolean boolCli, Cliente Cli) {
+        ListSelectionModel model = jTable1.getSelectionModel();
+        model.addListSelectionListener((ListSelectionEvent e) -> {
+            if (!model.getValueIsAdjusting()) {
+
+                Ristorante tmpRist = new Ristorante();
+
+                tmpRist.setRestaurantID((int) jTable1.getValueAt(model.getMinSelectionIndex(), 0));
+                tmpRist.setRestaurantName((String) jTable1.getValueAt(model.getMinSelectionIndex(), 1));
+                tmpRist.setAddress((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                tmpRist.setCity((String) jTable1.getValueAt(model.getMinSelectionIndex(), 3));
+                tmpRist.setCap((String) jTable1.getValueAt(model.getMinSelectionIndex(), 4));
+                tmpRist.setProvince((String) jTable1.getValueAt(model.getMinSelectionIndex(), 5));
+                tmpRist.setTelephoneNumber((String) jTable1.getValueAt(model.getMinSelectionIndex(), 6));
+                tmpRist.setWebSite((String) jTable1.getValueAt(model.getMinSelectionIndex(), 7));
+                tmpRist.setRestaurantType((String) jTable1.getValueAt(model.getMinSelectionIndex(), 8));
+
+                RecensioniGUI tmp = null;
+                try {
+                    if(boolCli)
+                        tmp = new RecensioniGUI(tmpRist, cli, true);
+                    else
+                        tmp = new RecensioniGUI(tmpRist, false);
+                } catch (Exception ex) {
+                    Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                tmp.setLocationRelativeTo(null);
+                tmp.setVisible(true);
+                jTable1.clearSelection();
+
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments

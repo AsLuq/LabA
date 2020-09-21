@@ -24,7 +24,9 @@ public class Sorts {
     public Sorts()
     {
     }
+    
     //<editor-fold desc="Methods">
+    
     /**
      * Filters the Restaurant list by City name and then
      * returns an ArrayList of Strings (restaurant names)
@@ -126,5 +128,6 @@ public class Sorts {
         });
         return filteredList;
     }
+    
     //</editor-fold>
 }

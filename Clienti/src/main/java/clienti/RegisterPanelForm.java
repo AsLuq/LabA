@@ -8,6 +8,8 @@ package clienti;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -203,28 +205,45 @@ public class RegisterPanelForm extends javax.swing.JFrame {
         Parser parser = new Parser();
         Cliente cliente = new Cliente();
 
-        try {
-            cliente.setName(jTextFieldNome.getText());
-            cliente.setSurname(jTextFieldCognome.getText());
-            cliente.setCity(jTextFieldComune.getText());
-            cliente.setProvince(jTextFieldProvincia.getText());
-            cliente.setMail(jTextFieldEmail.getText());
-            cliente.setNickName(jTextFieldNickName.getText());
-            cliente.setPassword(jTextFieldPassword.getText());
-            parser.UpdateFile(cliente);
+        if (!checkAllFieldTexts()) {
+            try {
+                cliente.setName(jTextFieldNome.getText());
+                cliente.setSurname(jTextFieldCognome.getText());
+                cliente.setCity(jTextFieldComune.getText());
+                cliente.setProvince(jTextFieldProvincia.getText());
+                cliente.setMail(jTextFieldEmail.getText());
+                cliente.setNickName(jTextFieldNickName.getText());
+                cliente.setPassword(jTextFieldPassword.getText());
+                parser.UpdateFile(cliente);
 
-            LoginFrame loginFrame = new LoginFrame();
-            loginFrame.setLocationRelativeTo(null);
-            loginFrame.setVisible(true);
-            this.dispose();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
+                LoginFrame loginFrame = new LoginFrame();
+                loginFrame.setLocationRelativeTo(null);
+                loginFrame.setVisible(true);
+                this.dispose();
+
+            } catch (IOException ex) {
+                Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        else 
+            JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Success", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jBtnSignUpMouseClicked
+
+    /**
+     * Checks if all the textFields are populated
+     *
+     * @return Boolean Value
+     * @author luqman asghar
+     */
+    public Boolean checkAllFieldTexts() {
+        return jTextFieldNome.getText().equals("") || jTextFieldCognome.getText().equals("")
+                || jTextFieldComune.getText().equals("") || jTextFieldProvincia.getText().equals("")
+                || jTextFieldNickName.getText().equals("") || jTextFieldPassword.getText().equals("")
+                || jTextFieldEmail.getText().equals("");
+    }
 
     /**
      * @param args the command line arguments

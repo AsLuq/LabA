@@ -26,6 +26,17 @@ public class Cliente {
     static final int LENGTH_ID = 3;
     // </editor-fold>
 
+    /**
+     * 
+     * @param name
+     * @param surname
+     * @param city
+     * @param province
+     * @param mail
+     * @param nickName
+     * @param password
+     * @param id
+     */
     public Cliente(String name, String surname, String city, String province, String mail, String nickName, String password, int id) {
         this.name = name;
         this.surname = surname;

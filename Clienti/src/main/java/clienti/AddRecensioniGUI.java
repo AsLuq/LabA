@@ -5,15 +5,15 @@
  */
 package clienti;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import ristoratori.Ristorante;
 
 /**
  *
- * @author crist
+ * @author Cristian Zuffellato
  */
 public class AddRecensioniGUI extends javax.swing.JFrame {
 
@@ -99,24 +99,33 @@ public class AddRecensioniGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Add the review to the file Recensioni.dati
+     *
+     * @param evt mouse click event
+     */
     private void jButtonAddReviewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddReviewMouseClicked
         // TODO add your handling code here:
         String selectedStar;
-        if (!jComboBox1.equals("Select an option:") && !jTextFieldReview.equals("")) {
+        if (!jComboBox1.getSelectedItem().toString().equals("Select an option:") && !jTextFieldReview.equals("")) {
             try {
                 selectedStar = (String) jComboBox1.getSelectedItem();
-                Recensione tmpRec = new Recensione(cli.getId(), rist.getRestaurantID(), Integer.parseInt(selectedStar), jTextFieldReview.getText());
-                Parser tmpPars = new Parser();
-                tmpPars.addRecensione(tmpRec);
-                jComboBox1.setSelectedIndex(0);
-                jTextFieldReview.setText("");
+                if (!selectedStar.equals("") || !jTextFieldReview.getText().equals("")) {
+                    Recensione tmpRec = new Recensione(cli.getId(), rist.getRestaurantID(), Integer.parseInt(selectedStar), jTextFieldReview.getText());
+                    Parser tmpPars = new Parser();
+                    tmpPars.addRecensione(tmpRec);
+                    jComboBox1.setSelectedIndex(0);
+                    jTextFieldReview.setText("");
+                }
             } catch (IOException ex) {
                 Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(AddRecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButtonAddReviewMouseClicked
 
     /**

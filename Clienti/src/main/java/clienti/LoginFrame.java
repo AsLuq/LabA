@@ -231,7 +231,7 @@ public class LoginFrame extends javax.swing.JFrame {
             List<Cliente> listCli = parser.readFromFile();
 
             for (Cliente cli : listCli) {
-                if (cli.getNickName().equals(nickName) && cli.getPassword().equals(password)) {
+                if (cli.getNickName().trim().equals(nickName) && cli.getPassword().trim().equals(password)) {
                     userExits = true;
                     cliente = cli;
                     break;
