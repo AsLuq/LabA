@@ -226,10 +226,9 @@ public class RegisterPanelForm extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else 
+        } else {
             JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Success", JOptionPane.INFORMATION_MESSAGE);
-
+        }
     }//GEN-LAST:event_jBtnSignUpMouseClicked
 
     /**
@@ -239,10 +238,14 @@ public class RegisterPanelForm extends javax.swing.JFrame {
      * @author luqman asghar
      */
     public Boolean checkAllFieldTexts() {
-        return jTextFieldNome.getText().equals("") || jTextFieldCognome.getText().equals("")
-                || jTextFieldComune.getText().equals("") || jTextFieldProvincia.getText().equals("")
-                || jTextFieldNickName.getText().equals("") || jTextFieldPassword.getText().equals("")
-                || jTextFieldEmail.getText().equals("");
+        return checkInputs(jTextFieldNome.getText()) || checkInputs(jTextFieldCognome.getText())
+                || checkInputs(jTextFieldComune.getText()) || checkInputs(jTextFieldProvincia.getText())
+                || checkInputs(jTextFieldNickName.getText()) || checkInputs(jTextFieldPassword.getText())
+                || checkInputs(jTextFieldEmail.getText());
+    }
+
+    public Boolean checkInputs(String input) {
+        return input.isBlank();
     }
 
     /**

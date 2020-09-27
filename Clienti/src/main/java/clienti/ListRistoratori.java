@@ -308,21 +308,19 @@ public class ListRistoratori extends javax.swing.JFrame {
             switch ((String) jComboBoxFilter.getSelectedItem()) {
                 case "Comune":
                     listCli = Sorts.findByCity(listCli, jTextFieldComune.getText());
-                    refreshJTable();
                     break;
                 case "Tipologia":
                     listCli = Sorts.findByType(listCli, jTextFieldTipologia.getText());
-                    refreshJTable();
                     break;
                 case "Nome":
                     listCli = Sorts.findByName(listCli, jTextFieldNome.getText());
-                    refreshJTable();
                     break;
                 case "Comune e Tipologia":
                     listCli = Sorts.findByCityAndType(listCli, jTextFieldComune.getText(), jTextFieldTipologia.getText());
-                    refreshJTable();
                     break;
             }
+            refreshJTable();
+            jButtonSearch.setSelected(false);
         } catch (Exception ex) {
             Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -361,13 +359,8 @@ public class ListRistoratori extends javax.swing.JFrame {
      * @throws java.lang.Exception
      */
     public void refreshJTable() throws Exception {
+        clearFilter(false);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.removeTableModelListener(jTable1);
-        //jTable1.getSelectionModel().removeListSelectionListener(new ListSelectionEvent());
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
-        }
-        jTable1.revalidate();
         Object[] rowData = new Object[9];
         for (Ristorante rist : listCli) {
             rowData[0] = rist.getRestaurantID();
@@ -391,21 +384,29 @@ public class ListRistoratori extends javax.swing.JFrame {
      * @author Luqman Asghar
      */
     private void jButtonClearFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonClearFilterMouseClicked
-        jTextFieldNome.setText("");
-        jTextFieldComune.setText("");
-        jTextFieldTipologia.setText("");
+        clearFilter(true);
+        jButtonClearFilter.setSelected(false);
+    }//GEN-LAST:event_jButtonClearFilterMouseClicked
+
+    public void clearFilter(Boolean clearFil) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.removeTableModelListener(jTable1);
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
         jTable1.revalidate();
-        try {
-            populateJTable();
-        } catch (Exception ex) {
-            Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (clearFil) {
+            try {
+                jTextFieldNome.setText("");
+                jTextFieldComune.setText("");
+                jTextFieldTipologia.setText("");
+                populateJTable();
+            } catch (Exception ex) {
+                Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_jButtonClearFilterMouseClicked
+    }
 
     /**
      * returns to loginFrame
@@ -426,6 +427,7 @@ public class ListRistoratori extends javax.swing.JFrame {
 
     /**
      * Adds row selection listener to the JTable
+     *
      * @param boolCli userLogged
      * @param Cli UserData
      * @author luqman asghar
@@ -433,7 +435,8 @@ public class ListRistoratori extends javax.swing.JFrame {
     private void addListenerToRows(Boolean boolCli, Cliente Cli) {
         ListSelectionModel model = jTable1.getSelectionModel();
         model.addListSelectionListener((ListSelectionEvent e) -> {
-            if (!model.getValueIsAdjusting()) {
+            //if (!model.getValueIsAdjusting()) {
+            if (!model.isSelectionEmpty()) {
 
                 Ristorante tmpRist = new Ristorante();
 
@@ -449,16 +452,22 @@ public class ListRistoratori extends javax.swing.JFrame {
 
                 RecensioniGUI tmp = null;
                 try {
-                    if(boolCli)
+                    if (boolCli) {
                         tmp = new RecensioniGUI(tmpRist, cli, true);
-                    else
+                    } else {
                         tmp = new RecensioniGUI(tmpRist, false);
+                    }
                 } catch (Exception ex) {
                     Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 tmp.setLocationRelativeTo(null);
                 tmp.setVisible(true);
-                jTable1.clearSelection();
+
+                try {
+                    jTable1.getSelectionModel().clearSelection();
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    Logger.getLogger(ListRistoratori.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         });

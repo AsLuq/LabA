@@ -80,7 +80,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         }
 
     }
-    
+
     private RecensioniGUI() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -370,6 +370,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
 
     /**
      * opens AddReviewGUI
+     *
      * @param evt mouse click event
      */
     private void jButtonAddRecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddRecMouseClicked
@@ -378,7 +379,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         try {
             tmp = new AddRecensioniGUI(cli, rist);
 
-        }catch(Exception ex){  
+        } catch (Exception ex) {
         }
 
         tmp.setLocationRelativeTo(null);
@@ -388,17 +389,17 @@ public class RecensioniGUI extends javax.swing.JFrame {
     /**
      * Count Stars for specific restaurant
      */
-    public void CountStars() throws Exception{
+    public void CountStars() throws Exception {
         try {
             Parser tmpParser = new Parser();
             List<Recensione> tmpListRece = tmpParser.readRecensioniFromFile();
-            
+
             int contatore1S = 0;
             int contatore2S = 0;
             int contatore3S = 0;
             int contatore4S = 0;
             int contatore5S = 0;
-            
+
             for (Recensione rece : tmpListRece) {
                 if (this.rist.getRestaurantID() == rece.getRestaurantID()) {
                     if (rece.getStars() == 1) {
@@ -414,7 +415,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
             jLabelGet1Stars.setText(String.valueOf(contatore1S));
             jLabelGet2Stars.setText(String.valueOf(contatore2S));
             jLabelGet3Stars.setText(String.valueOf(contatore3S));
@@ -424,11 +425,11 @@ public class RecensioniGUI extends javax.swing.JFrame {
             Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * populates restaurant info
      */
-    public void setRestaurantInfo(){
+    public void setRestaurantInfo() {
         ListSelectionModel model = jTable1.getSelectionModel();
         jTextArea1.setText("");
         model.addListSelectionListener(new ListSelectionListener() {
@@ -436,11 +437,10 @@ public class RecensioniGUI extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if (!model.getValueIsAdjusting()) {
                     try {
-                        jTextArea1.setText((String)jTable1.getValueAt(model.getMinSelectionIndex(), 2));
+                        jTextArea1.setText((String) jTable1.getValueAt(model.getMinSelectionIndex(), 2));
                     } catch (Exception ex) {
                         Logger.getLogger(RecensioniGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    jTable1.clearSelection();
                 }
             }
         });
@@ -454,7 +454,7 @@ public class RecensioniGUI extends javax.swing.JFrame {
         jLabelGetWebsite.setText(rist.getWebSite());
         jLabelGetType.setText(rist.getRestaurantType());
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -522,7 +522,6 @@ public class RecensioniGUI extends javax.swing.JFrame {
                 rowData[2] = rece.getRecensione();
                 model.addRow(rowData);
             }
-            
 
         }
 
