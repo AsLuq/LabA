@@ -73,7 +73,7 @@ public class RestaurantGUI extends JFrame {
         lblBuildNumb.setBounds(51, 118, 150, 25);
         contentPane.add(lblBuildNumb);
 
-        JLabel lblCity = new JLabel("Città: ");
+        JLabel lblCity = new JLabel("Citta': ");
         lblCity.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblCity.setBounds(51, 154, 150, 25);
         contentPane.add(lblCity);
@@ -165,11 +165,11 @@ public class RestaurantGUI extends JFrame {
         btnAddRest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!checkInputs(textFieldRestName.getText()) || !checkInputs(textFieldAddress.getText())
-                        || !checkInputs(textFieldBuildNumb.getText()) || !checkInputs(textFieldCity.getText())
-                        || !checkInputs(textFieldProvince.getText()) || !checkInputs(textFieldPostalCode.getText())
-                        || !checkInputs(textFieldTelephNumb.getText()) || !checkInputs(textFieldWebsite.getText())
-                        || !comboRestaurant.getSelectedItem().equals("Seleziona un opzione: ")) {
+                if (!checkInputs(textFieldRestName.getText()) && !checkInputs(textFieldAddress.getText())
+                        && !checkInputs(textFieldBuildNumb.getText()) && !checkInputs(textFieldCity.getText())
+                        && !checkInputs(textFieldProvince.getText()) && !checkInputs(textFieldPostalCode.getText())
+                        && !checkInputs(textFieldTelephNumb.getText()) && !checkInputs(textFieldWebsite.getText())
+                        && !comboRestaurant.getSelectedItem().equals("Seleziona un opzione: ")) {
 
                     Ristorante tmpRestaurant = new Ristorante();
 
@@ -202,7 +202,7 @@ public class RestaurantGUI extends JFrame {
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Missing Gaps", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             }
