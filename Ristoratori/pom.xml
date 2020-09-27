@@ -19,7 +19,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ristoratori.RestaurantLoginGUI</mainClass>
+                            <mainClass>ristoratori.Ristoratori</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

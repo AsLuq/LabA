@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 
 public class RestaurantGUI extends JFrame {
 // <editor-fold desc="Attributes">
@@ -48,7 +49,6 @@ public class RestaurantGUI extends JFrame {
     /**
      * Create the frame.
      */
-    
     public RestaurantGUI() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,12 +102,6 @@ public class RestaurantGUI extends JFrame {
         lblRestType.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblRestType.setBounds(51, 336, 150, 25);
         contentPane.add(lblRestType);
-
-        JLabel lblMissedGap = new JLabel("You missed something!");
-        lblMissedGap.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblMissedGap.setBounds(211, 417, 150, 25);
-        lblMissedGap.setVisible(false);
-        contentPane.add(lblMissedGap);
 
         textFieldRestName = new JTextField();
         textFieldRestName.setDocument(new RestaurantJTextFieldLimit(30));
@@ -164,18 +158,17 @@ public class RestaurantGUI extends JFrame {
         contentPane.add(comboRestaurant);
 
         /**
-         * to add the restaurant checks if all the textField are populated and even that the comboBox isn't selected
+         * to add the restaurant checks if all the textField are populated and
+         * even that the comboBox isn't selected
          */
-        JButton btnAddRest = new JButton("Add Restaurant");
+        JButton btnAddRest = new JButton("Aggiungi Ristorante");
         btnAddRest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String emptyString = "";
-
-                if (!textFieldRestName.getText().equals(emptyString) || !textFieldAddress.getText().equals(emptyString)
-                        || !textFieldBuildNumb.getText().equals(emptyString) || !textFieldCity.getText().equals(emptyString)
-                        || !textFieldProvince.getText().equals(emptyString) || !textFieldPostalCode.getText().equals(emptyString)
-                        || !textFieldTelephNumb.getText().equals(emptyString) || !textFieldWebsite.getText().equals(emptyString)
+                if (!checkInputs(textFieldRestName.getText()) || !checkInputs(textFieldAddress.getText())
+                        || !checkInputs(textFieldBuildNumb.getText()) || !checkInputs(textFieldCity.getText())
+                        || !checkInputs(textFieldProvince.getText()) || !checkInputs(textFieldPostalCode.getText())
+                        || !checkInputs(textFieldTelephNumb.getText()) || !checkInputs(textFieldWebsite.getText())
                         || !comboRestaurant.getSelectedItem().equals("Seleziona un opzione: ")) {
 
                     Ristorante tmpRestaurant = new Ristorante();
@@ -209,7 +202,7 @@ public class RestaurantGUI extends JFrame {
                     }
 
                 } else {
-                    lblMissedGap.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             }
@@ -219,4 +212,14 @@ public class RestaurantGUI extends JFrame {
         contentPane.add(btnAddRest);
 
     }
+
+    /**
+     * Checks if the input contains isBlank - null
+     * @param input String to check
+     * @return boolean
+     */
+    public Boolean checkInputs(String input) {
+        return input.isBlank();
+    }
+
 }

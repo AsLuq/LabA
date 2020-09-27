@@ -244,6 +244,11 @@ public class RegisterPanelForm extends javax.swing.JFrame {
                 || checkInputs(jTextFieldEmail.getText());
     }
 
+    /**
+     * Checks if the input contains isBlank - null
+     * @param input String to check
+     * @return boolean
+     */
     public Boolean checkInputs(String input) {
         return input.isBlank();
     }

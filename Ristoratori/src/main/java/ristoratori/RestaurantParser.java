@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class RestaurantParser {
 
-    //public static String path = ".." + File.separator + "data" + File.separator + "eatAdvisor.dati";
-    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "eatAdvisor.dati";
+    public static String path = ".." + File.separator + "data" + File.separator + "eatAdvisor.dati";
+    //public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "eatAdvisor.dati";
     private int lastListID;
     private Boolean newFile = false;
 

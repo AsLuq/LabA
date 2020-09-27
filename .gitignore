@@ -4,3 +4,15 @@
 /Clienti/bin/target/
 Clienti/target/classes/clienti
 Clienti/target/classes/ristoratori
+Clienti/target/classes/clienti/ListRistoratori$5.class
+Ristoratori/target/classes/ristoratori/Ristoratori.class
+Ristoratori/target/maven-archiver/pom.properties
+Ristoratori/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+Ristoratori/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+Ristoratori/target/classes/ristoratori/Ristorante.class
+Ristoratori/target/classes/ristoratori/RestaurantParser.class
+Clienti/target/classes/clienti/RegisterPanelForm$3.class
+Clienti/target/classes/clienti/RegisterPanelForm.class
+Clienti/target/classes/clienti/RecensioniGUI.class
+Clienti/target/classes/clienti/RecensioniGUI$3.class
+Clienti/target/classes/clienti/ListRistoratori$5.class

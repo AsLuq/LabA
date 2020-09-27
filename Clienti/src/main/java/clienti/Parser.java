@@ -23,10 +23,10 @@ public class Parser {
     public Parser() {
     }
 
-//    public static String path = ".." + File.separator + "data" + File.separator + "Utenti.dati";
-//    public static String pathRecensioni = ".." + File.separator + "data" + File.separator + "Recensioni.dati";
-    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Utenti.dati";
-    public static String pathRecensioni = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Recensioni.dati";
+    public static String path = ".." + File.separator + "data" + File.separator + "Utenti.dati";
+    public static String pathRecensioni = ".." + File.separator + "data" + File.separator + "Recensioni.dati";
+//    public static String path = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Utenti.dati";
+//    public static String pathRecensioni = new File(System.getProperty("user.dir")).getParentFile().getPath() + File.separator + "FileDati" + File.separator + "Recensioni.dati";
     private Boolean newFile = false;
 
     // <editor-fold desc="methods">

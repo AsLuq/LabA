@@ -388,6 +388,10 @@ public class ListRistoratori extends javax.swing.JFrame {
         jButtonClearFilter.setSelected(false);
     }//GEN-LAST:event_jButtonClearFilterMouseClicked
 
+    /**
+     * Removes rows from Jtable and clear filters
+     * @param clearFil called to clear filters or refresh JTable
+     */
     public void clearFilter(Boolean clearFil) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.removeTableModelListener(jTable1);
