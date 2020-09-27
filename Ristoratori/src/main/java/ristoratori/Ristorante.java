@@ -8,7 +8,6 @@ import java.util.List;
  * @author crist
  * @author Andrea Basilico
  */
-// 
 public class Ristorante {
 
     // <editor-fold desc="Attributes">

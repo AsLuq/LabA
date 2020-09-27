@@ -15,7 +15,7 @@ public class Ristoratori{
 
     public static void main(String args[]) throws Exception{
          
-        RestaurantLoginGUI restaurantLogin = new RestaurantLoginGUI();
+        RestaurantGUI restaurantLogin = new RestaurantGUI();
         restaurantLogin.setVisible(true);
         
         
