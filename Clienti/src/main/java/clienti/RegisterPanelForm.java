@@ -227,7 +227,7 @@ public class RegisterPanelForm extends javax.swing.JFrame {
                 Logger.getLogger(RegisterPanelForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Popolare tutti i campi per procedere con la registrazione", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBtnSignUpMouseClicked
 
